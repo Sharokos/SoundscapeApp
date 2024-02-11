@@ -7,4 +7,6 @@ INSERT INTO soundscape VALUES
 
 INSERT INTO sound  VALUES
 (1001, 'Fireplace', 'DarkLibrary/Sound/fire.mp3','DarkLibrary/Images/library.jpg', 1),
-(1002, 'Wind','DarkLibrary/Sound/wind.mp3','DarkLibrary/Images/library.jpg', 1);
+(1002, 'Wind','DarkLibrary/Sound/wind.mp3','DarkLibrary/Images/library.jpg', 1),
+(1003, 'Steps','DarkLibrary/Sound/steps.mp3','DarkLibrary/Images/library.jpg', 1),
+(1004, 'Page','DarkLibrary/Sound/page.mp3','DarkLibrary/Images/library.jpg', 1);

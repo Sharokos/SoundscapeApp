@@ -1,20 +1,27 @@
-const audio1 = new Audio('fire.mp3');
-const audio2 = new Audio('wind.mp3');
+ const sliders = document.querySelectorAll('.vertical-slider');
+const audioElements = [];
 
-document.getElementById('audio1').addEventListener('input', function (event) {
-	audio1.volume = event.target.value / 100;
-});
+sliders.forEach(function (slider) {
+    const audio = new Audio(slider.dataset.audioPath);
+    audioElements.push({ slider, audio });
 
-document.getElementById('audio2').addEventListener('input', function (event) {
-	audio2.volume = event.target.value / 100;
-});
-
-document.addEventListener('keydown', function (event) {
-        // Check if the pressed key is the spacebar (key code 32)
-        if (event.code === 'Space') {
-            // Play all audio elements
-            audio1.play();
-            audio2.play();
-            // Add more audio elements if needed
-        }
+    slider.addEventListener('input', function (event) {
+        audio.volume = event.target.value / 100;
     });
+});
+let isAudioPlaying = false;
+document.addEventListener('keydown', function (event) {
+    if (event.code === 'Space') {
+        audioElements.forEach(function (item) {
+            const { slider, audio } = item;
+            if (!isAudioPlaying) {
+                audio.play();
+            }
+            else{
+                audio.pause();
+            }
+
+        });
+    }
+    isAudioPlaying = !isAudioPlaying;
+});

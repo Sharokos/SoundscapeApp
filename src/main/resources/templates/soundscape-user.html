@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Player</title>
+    <link rel="stylesheet" href="../style-soundscape.css">
+</head>
+
+<body th:style="'background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8)),
+                    url(../' + ${scape.soundscapeImage} + ');'">
+
+<div id="btn_header">
+    <div id="btn_places">
+        <a class = "presets" th:href="@{/main}">Back</a>
+        <div></div>
+        <div class="presets">Presets</div>
+    </div>
+</div>
+<div id="flex-container">
+    <div class="flex-item"></div>
+    <div  class="flex-item" id="container">
+            <div class="audio-control" th:each="sounds : ${sounds}">
+                <input id="audio1" type="range" value="50" min="0" max="100" class="vertical-slider" th:data-audio-path="'../' + ${sounds.soundPath}">
+                <p id = "soundscapeText" th:text="${sounds.soundName}"></p>
+            </div>
+    </div>
+    <div class="flex-item"></div>
+</div>
+
+
+
+
+<script src="../script.js"> </script>
+
+
+
+
+</body>
+</html>

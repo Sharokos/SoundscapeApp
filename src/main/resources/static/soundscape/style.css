@@ -15,14 +15,12 @@ body {
     width: 100%;
     color: #b9c6d2;
     text-align: center;
-
+    background-size: contain;
     background-position: center;
     background-color: #302941;
     padding: 20px;
     margin-bottom: 20px;
     box-sizing: border-box;
-    background-size: 100% 300%;
-    background-repeat: no-repeat;
 }
 .box:hover{
     scale: 110%;

@@ -6,6 +6,7 @@ import com.sharokos.soundscape.service.ISoundscapeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -18,16 +19,23 @@ public class AppController {
     }
     @GetMapping("/main")
     public String showMainPage(Model model){
-            Soundscape scape = soundscapeService.getSoundscapeById(1);
-            System.out.println(scape.getSoundscapeName());
-            List<Sound> sounds = soundscapeService.getSoundsBySoundscape(scape);
+
+
             List<Soundscape> soundScapes = soundscapeService.getAllSoundscapes();
-            //System.out.println(sounds);
+
             model.addAttribute("soundScapes", soundScapes);
-            model.addAttribute("sounds", sounds);
+
 
 
 
         return "main-page";
+    }
+    @GetMapping("/soundscape/{soundscapeId}")
+    public String showSoundscape(@PathVariable int soundscapeId, Model model){
+        Soundscape scape = soundscapeService.getSoundscapeById(soundscapeId);
+        List<Sound> sounds = soundscapeService.getSoundsBySoundscape(scape);
+        model.addAttribute("sounds", sounds);
+        model.addAttribute("scape", scape);
+        return "soundscape-user";
     }
 }

@@ -14,14 +14,14 @@
 
 <div class="container">
     <!-- Creating divs for each entry found inside soundscapes.   -->
-    <div class="box"
+    <a   th:href="@{'/soundscape/' + ${soundScape.id}}" class="box"
          th:each="soundScape : ${soundScapes}"
          th:style="'background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8)),
                     url(' + ${soundScape.soundscapeImage} + ');'"
     >
         <h2 th:text="${soundScape.soundscapeName}"> </h2>
         <p th:text="${soundScape.soundscapeDescription}"></p>
-    </div>
+    </a>
 </div>
 
 
