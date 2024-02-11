@@ -1,0 +1,25 @@
+package com.sharokos.soundscape.service;
+
+import com.sharokos.soundscape.Model.Sound;
+import com.sharokos.soundscape.Model.Soundscape;
+import com.sharokos.soundscape.dao.SoundscapeDAO;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+@Service
+public class SoundscapeService implements ISoundscapeService{
+
+    private SoundscapeDAO soundscapeDAO;
+    public SoundscapeService(SoundscapeDAO soundscapeDAO){
+        this.soundscapeDAO = soundscapeDAO;
+    }
+    @Override
+    public Soundscape getSoundscapeById(int id) {
+        return soundscapeDAO.getSoundscapeById(id);
+    }
+
+    @Override
+    public List<Sound> getSoundsBySoundscape(Soundscape scape) {
+        return soundscapeDAO.getSoundsFromSoundscape(scape);
+    }
+}
