@@ -22,4 +22,9 @@ public class SoundscapeService implements ISoundscapeService{
     public List<Sound> getSoundsBySoundscape(Soundscape scape) {
         return soundscapeDAO.getSoundsFromSoundscape(scape);
     }
+
+    @Override
+    public List<Soundscape> getAllSoundscapes() {
+        return soundscapeDAO.getAllSoundscapes();
+    }
 }

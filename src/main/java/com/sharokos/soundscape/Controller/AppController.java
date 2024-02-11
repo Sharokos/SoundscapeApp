@@ -21,8 +21,11 @@ public class AppController {
             Soundscape scape = soundscapeService.getSoundscapeById(1);
             System.out.println(scape.getSoundscapeName());
             List<Sound> sounds = soundscapeService.getSoundsBySoundscape(scape);
+            List<Soundscape> soundScapes = soundscapeService.getAllSoundscapes();
             //System.out.println(sounds);
+            model.addAttribute("soundScapes", soundScapes);
             model.addAttribute("sounds", sounds);
+
 
 
         return "main-page";

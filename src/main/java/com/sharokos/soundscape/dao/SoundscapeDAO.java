@@ -41,4 +41,10 @@ public class SoundscapeDAO implements ISoundscapeDAO{
         System.out.println(sounds.getResultList());
         return sounds.getResultList();
     }
+
+    @Override
+    public List<Soundscape> getAllSoundscapes() {
+        TypedQuery<Soundscape> soundScapes = entityManager.createQuery("from Soundscape", Soundscape.class);
+        return soundScapes.getResultList();
+    }
 }

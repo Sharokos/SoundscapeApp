@@ -9,4 +9,5 @@ public interface ISoundscapeDAO {
     void addSoundscape();
     Soundscape getSoundscapeById(int id);
     List<Sound> getSoundsFromSoundscape(Soundscape soundscape);
+    List<Soundscape> getAllSoundscapes();
 }

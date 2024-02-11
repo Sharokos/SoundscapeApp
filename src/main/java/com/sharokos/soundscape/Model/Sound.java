@@ -4,6 +4,29 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="sound")
 public class Sound {
+
+    @Column(name="sound_name")
+    private String soundName;
+    @Column(name="sound_path")
+    private String soundPath;
+    @Column(name="image_path")
+    private String imagePath;
+    @ManyToOne
+    @JoinColumn(name = "id", nullable = false)
+    private Soundscape soundscape;
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name="sound_id")
+    private int soundId;
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     public String getSoundName() {
         return soundName;
     }
@@ -36,15 +59,4 @@ public class Sound {
         this.soundId = soundId;
     }
 
-    @Column(name="sound_name")
-    private String soundName;
-    @Column(name="path")
-    private String soundPath;
-    @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
-    private Soundscape soundscape;
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="sound_id")
-    private int soundId;
 }

@@ -8,4 +8,5 @@ import java.util.List;
 public interface ISoundscapeService {
     Soundscape getSoundscapeById(int id);
     public List<Sound> getSoundsBySoundscape(Soundscape scape);
+    public List<Soundscape> getAllSoundscapes();
 }
