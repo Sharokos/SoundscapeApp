@@ -1,5 +1,6 @@
 package com.sharokos.soundscape.service;
 
+import com.sharokos.soundscape.Model.Preset;
 import com.sharokos.soundscape.Model.Sound;
 import com.sharokos.soundscape.Model.Soundscape;
 
@@ -9,4 +10,6 @@ public interface ISoundscapeService {
     Soundscape getSoundscapeById(int id);
     public List<Sound> getSoundsBySoundscape(Soundscape scape);
     public List<Soundscape> getAllSoundscapes();
+
+    Preset getPresetById(int presetId);
 }

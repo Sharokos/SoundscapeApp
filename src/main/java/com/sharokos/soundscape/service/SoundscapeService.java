@@ -1,5 +1,6 @@
 package com.sharokos.soundscape.service;
 
+import com.sharokos.soundscape.Model.Preset;
 import com.sharokos.soundscape.Model.Sound;
 import com.sharokos.soundscape.Model.Soundscape;
 import com.sharokos.soundscape.dao.SoundscapeDAO;
@@ -26,5 +27,10 @@ public class SoundscapeService implements ISoundscapeService{
     @Override
     public List<Soundscape> getAllSoundscapes() {
         return soundscapeDAO.getAllSoundscapes();
+    }
+
+    @Override
+    public Preset getPresetById(int presetId) {
+        return soundscapeDAO.getPresetById(presetId);;
     }
 }

@@ -1,5 +1,6 @@
 package com.sharokos.soundscape.dao;
 
+import com.sharokos.soundscape.Model.Preset;
 import com.sharokos.soundscape.Model.Sound;
 import com.sharokos.soundscape.Model.Soundscape;
 import jakarta.persistence.EntityManager;
@@ -46,5 +47,11 @@ public class SoundscapeDAO implements ISoundscapeDAO{
     public List<Soundscape> getAllSoundscapes() {
         TypedQuery<Soundscape> soundScapes = entityManager.createQuery("from Soundscape", Soundscape.class);
         return soundScapes.getResultList();
+    }
+
+    @Override
+    public Preset getPresetById(int presetId) {
+        Preset preset = entityManager.find(Preset.class, presetId);
+        return preset;
     }
 }

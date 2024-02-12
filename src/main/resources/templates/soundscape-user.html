@@ -21,12 +21,22 @@
 </div>
 <div id="flex-container">
     <div class="flex-item"></div>
-    <div  class="flex-item" id="container">
-            <div class="audio-control" th:each="sounds : ${sounds}">
-                <input id="audio1" type="range" value="50" min="0" max="100" class="vertical-slider" th:data-audio-path="'../' + ${sounds.soundPath}">
-                <p id = "soundscapeText" th:text="${sounds.soundName}"></p>
+    <form action="#" th:action="@{/savePreset}" th:object="${preset}" method="POST">
+        <div class="flex-item" id="container">
+            <div class="audio-control" th:each="sound : ${sounds}">
+                <input th:id="'audio' + ${sound.soundName}"
+                       type="range"
+                       th:value="${preset.soundVolumes[sound.soundName]}"
+                min="0"
+                max="100"
+                class="vertical-slider"
+                th:field="*{soundVolumes[__${sound.soundName}__]}">
+                <p id="soundscapeText" th:text="${sound.soundName}"></p>
             </div>
-    </div>
+        </div>
+        <button type="submit">Save Preset</button>
+    </form>
+
     <div class="flex-item"></div>
 </div>
 
