@@ -12,4 +12,6 @@ public interface ISoundscapeService {
     public List<Soundscape> getAllSoundscapes();
 
     Preset getPresetById(int presetId);
+
+    Preset savePreset(Preset thePreset);
 }

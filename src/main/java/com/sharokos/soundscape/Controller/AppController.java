@@ -6,12 +6,10 @@ import com.sharokos.soundscape.Model.Soundscape;
 import com.sharokos.soundscape.service.ISoundscapeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AppController {
@@ -37,7 +35,17 @@ public class AppController {
     public String showSoundscape(@PathVariable int soundscapeId, @PathVariable int presetId, Model model){
         Soundscape scape = soundscapeService.getSoundscapeById(soundscapeId);
         List<Sound> sounds = soundscapeService.getSoundsBySoundscape(scape);
-        Preset preset = soundscapeService.getPresetById(presetId)
+        Preset preset = soundscapeService.getPresetById(presetId);
+        System.out.println(preset.getPresetName());
+        Map<String, Integer> testiMap = preset.getSoundVolumes();
+        for (Map.Entry<String, Integer> entry : testiMap.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+
+            // Perform your operations here
+            System.out.println("Key: " + key + ", Value: " + value);
+        }
+
         model.addAttribute("sounds", sounds);
         model.addAttribute("scape", scape);
         model.addAttribute("preset", preset);
@@ -50,7 +58,11 @@ public class AppController {
     }
 
     @PostMapping("/savePreset")
-    public void savePreset(@RequestBody Preset thePreset){
-        System.out.println(thePreset.getSoundVolumes());
+    public String savePreset(@ModelAttribute Preset thePreset){
+        thePreset.setId(0);
+        Preset savedPreset = soundscapeService.savePreset(thePreset);
+        // you can also retrieve the soundScape Id of the preset after you implement this. Get the Id and use it in the URL to navigate back
+        int saveId = savedPreset.getId();
+        return "redirect:/soundscape/1/" +saveId;
     }
 }

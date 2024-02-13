@@ -5,45 +5,55 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audio Player</title>
-    <link rel="stylesheet" href="../style-soundscape.css">
+    <title th:text="'Sharokos ' +${scape.soundscapeName}">Sharokos Sounscape</title>
+    <link rel="stylesheet" href="../../style-soundscape.css">
 </head>
 
 <body th:style="'background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8)),
-                    url(../' + ${scape.soundscapeImage} + ');'">
+                    url(../../' + ${scape.soundscapeImage} + ');'">
 
 <div id="btn_header">
     <div id="btn_places">
-        <a class = "presets" th:href="@{/main}">Back</a>
-        <div></div>
-        <div class="presets">Presets</div>
+
+
     </div>
 </div>
 <div id="flex-container">
-    <div class="flex-item"></div>
+    <a class = "flex-item" th:href="@{/main}">Back</a>
     <form action="#" th:action="@{/savePreset}" th:object="${preset}" method="POST">
         <div class="flex-item" id="container">
             <div class="audio-control" th:each="sound : ${sounds}">
                 <input th:id="'audio' + ${sound.soundName}"
+                       class="vertical-slider"
                        type="range"
                        th:value="${preset.soundVolumes[sound.soundName]}"
-                min="0"
-                max="100"
-                class="vertical-slider"
-                th:field="*{soundVolumes[__${sound.soundName}__]}">
+                       th:data-audio-path="'../../' + ${sound.soundPath}"
+                       min="0"
+                       max="100"
+                       th:field="*{soundVolumes[__${sound.soundName}__]}">
                 <p id="soundscapeText" th:text="${sound.soundName}"></p>
             </div>
         </div>
         <button type="submit">Save Preset</button>
     </form>
+    <div class="flex-item" id="menu_container">
+    <a id="preset_button">Presets
+        <ul id="menu-list">
+        <li><a href="#">Item 1</a></li>
+        <li><a href="#">Item 2</a></li>
+        <li><a href="#">Item 3</a></li>
+        <!-- Add more menu items as needed -->
+    </ul>
+    </div>
 
-    <div class="flex-item"></div>
+
+    </a>
 </div>
 
 
 
 
-<script src="../script.js"> </script>
+<script src="../../script.js"> </script>
 
 
 

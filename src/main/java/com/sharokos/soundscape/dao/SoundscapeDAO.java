@@ -54,4 +54,12 @@ public class SoundscapeDAO implements ISoundscapeDAO{
         Preset preset = entityManager.find(Preset.class, presetId);
         return preset;
     }
+
+    @Override
+    public Preset savePreset(Preset thePreset) {
+        if(thePreset.getPresetName() == null){
+            thePreset.setPresetName("DefaultSave");
+        }
+        return entityManager.merge(thePreset);
+    }
 }

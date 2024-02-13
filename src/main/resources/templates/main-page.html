@@ -5,7 +5,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audio Player</title>
+    <title>Sharokos Soundscapes</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -14,7 +14,7 @@
 
 <div class="container">
     <!-- Creating divs for each entry found inside soundscapes.   -->
-    <a   th:href="@{'/soundscape/' + ${soundScape.id}}" class="box"
+    <a   th:href="@{'/soundscape/' + ${soundScape.id} +'/1'}" class="box"
          th:each="soundScape : ${soundScapes}"
          th:style="'background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8)),
                     url(' + ${soundScape.soundscapeImage} + ');'"

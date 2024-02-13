@@ -6,7 +6,10 @@ body {
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
-
+a {
+  text-decoration: none; /* Removes underline */
+  font-weight: normal;   /* Removes bold */
+}
 #container {
     display: flex;
     height: 100vh;
@@ -20,13 +23,13 @@ body {
 #btn_header{
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     justify-content: space-around;
     height: 15%;
 }
 #btn_places{
     height: 15%;
-    display: flex;
-    flex-direction: column;
+
     align-items: center;
 }
 .presets{

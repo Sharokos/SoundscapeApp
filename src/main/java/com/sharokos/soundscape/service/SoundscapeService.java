@@ -4,6 +4,7 @@ import com.sharokos.soundscape.Model.Preset;
 import com.sharokos.soundscape.Model.Sound;
 import com.sharokos.soundscape.Model.Soundscape;
 import com.sharokos.soundscape.dao.SoundscapeDAO;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +32,12 @@ public class SoundscapeService implements ISoundscapeService{
 
     @Override
     public Preset getPresetById(int presetId) {
-        return soundscapeDAO.getPresetById(presetId);;
+        return soundscapeDAO.getPresetById(presetId);
+    }
+
+    @Override
+    @Transactional
+    public Preset savePreset(Preset thePreset) {
+       return soundscapeDAO.savePreset(thePreset);
     }
 }
