@@ -32,3 +32,4 @@ document.getElementById('preset_button').addEventListener('click', function () {
     var menuList = document.getElementById('menu-list');
     menuList.style.display = (menuList.style.display === 'none' || menuList.style.display === '') ? 'block' : 'none';
 });
+

@@ -10,6 +10,7 @@ a {
   text-decoration: none; /* Removes underline */
   font-weight: normal;   /* Removes bold */
 }
+
 #container {
     display: flex;
     height: 100vh;
@@ -27,6 +28,18 @@ a {
     justify-content: space-around;
     height: 15%;
 }
+div#menu_container {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+#menu-list{
+      display: none;
+      height: 100vh;
+      width: 200px;
+      background-color: rgba(0, 0, 0, 0.5);
+      overflow-x: hidden;
+      transition: 1.5s;
+}
+
 #btn_places{
     height: 15%;
 
@@ -40,7 +53,7 @@ color: #b9c6d2;
     height: 100vh; /* 100% of the viewport height */
     flex-direction: column;
     flex-wrap: wrap;
-    align-content: space-around;
+    align-content: space-between;
     }
 }
 .flex-item {
