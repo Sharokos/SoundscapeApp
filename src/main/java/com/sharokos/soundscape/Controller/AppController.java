@@ -4,10 +4,13 @@ import com.sharokos.soundscape.Model.Sound;
 import com.sharokos.soundscape.Model.Preset;
 import com.sharokos.soundscape.Model.Soundscape;
 import com.sharokos.soundscape.service.ISoundscapeService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,21 +36,21 @@ public class AppController {
     }
     @GetMapping("/soundscape/{soundscapeId}/{presetId}")
     public String showSoundscape(@PathVariable int soundscapeId, @PathVariable int presetId, Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // Get the username
+        String username = authentication.getName();
         Soundscape scape = soundscapeService.getSoundscapeById(soundscapeId);
         List<Sound> sounds = soundscapeService.getSoundsBySoundscape(scape);
+        List<Preset> userPresets = soundscapeService.getPresetByUserAndSoundscape(username, soundscapeId);
+        List<Preset> defaultPresets = soundscapeService.getDefaultPresets(soundscapeId);
         Preset preset = soundscapeService.getPresetById(presetId);
-        System.out.println(preset.getPresetName());
-        Map<String, Integer> testiMap = preset.getSoundVolumes();
-        for (Map.Entry<String, Integer> entry : testiMap.entrySet()) {
-            String key = entry.getKey();
-            Integer value = entry.getValue();
-
-            // Perform your operations here
-            System.out.println("Key: " + key + ", Value: " + value);
-        }
-
+        List<Preset> allPresets = new ArrayList<Preset>();
+        allPresets.addAll(userPresets);
+        allPresets.addAll(defaultPresets);
         model.addAttribute("sounds", sounds);
         model.addAttribute("scape", scape);
+        model.addAttribute("presets", allPresets);
         model.addAttribute("preset", preset);
         return "soundscape-user";
     }

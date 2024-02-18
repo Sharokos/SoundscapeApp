@@ -26,6 +26,16 @@ public class SoundscapeService implements ISoundscapeService{
     }
 
     @Override
+    public List<Preset> getPresetByUserAndSoundscape(String username, int soundScapeId) {
+        return soundscapeDAO.getPresetsByUserAndSoundscape(username, soundScapeId);
+    }
+
+    @Override
+    public List<Preset> getDefaultPresets(int soundScapeId) {
+        return soundscapeDAO.getDefaultPresetsForSoundscape(soundScapeId);
+    }
+
+    @Override
     public List<Soundscape> getAllSoundscapes() {
         return soundscapeDAO.getAllSoundscapes();
     }

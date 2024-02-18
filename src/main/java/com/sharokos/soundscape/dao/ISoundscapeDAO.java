@@ -13,6 +13,8 @@ public interface ISoundscapeDAO {
     List<Soundscape> getAllSoundscapes();
 
     Preset getPresetById(int presetId);
+    List<Preset> getPresetsByUserAndSoundscape(String username, int soundscapeId);
+    List<Preset> getDefaultPresetsForSoundscape(int soundscapeId);
 
     Preset savePreset(Preset thePreset);
 }

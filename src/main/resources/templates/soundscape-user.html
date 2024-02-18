@@ -22,6 +22,8 @@
     <a class = "flex-item" th:href="@{/main}">Back</a>
     <form action="#" th:action="@{/savePreset}" th:object="${preset}" method="POST">
         <div class="flex-item" id="container">
+            <input type="hidden" name="soundscapeId" th:value="${soundscapeId}" /> // AICI AI RAMAS, SETEZI TOTUL PT PRESET DE AICI
+
             <div class="audio-control" th:each="sound : ${sounds}">
                 <input th:id="'audio' + ${sound.soundName}"
                        class="vertical-slider"
@@ -39,10 +41,8 @@
     <div class="flex-item" id="menu_container">
         <div class="collapse_menu" id = "collapse_menu">
             <a id="preset_button">Presets
-                <ul id="menu-list">
-                    <li><a href="#">Item 1</a></li>
-                    <li><a href="#">Item 2</a></li>
-                    <li><a href="#">Item 3</a></li>
+                <ul id="menu-list" th:each="preset_iter : ${presets}">
+                    <li><a th:href="@{'../' + ${preset_iter.id}}" th:text="${preset_iter.presetName}"></a></li>
                  </ul>
             </a>
         </div>

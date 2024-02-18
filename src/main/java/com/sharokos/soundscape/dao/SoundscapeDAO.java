@@ -33,9 +33,6 @@ public class SoundscapeDAO implements ISoundscapeDAO{
     @Override
     public List<Sound> getSoundsFromSoundscape(Soundscape soundscape) {
         int soundScapeId = soundscape.getId();
-        System.out.println(soundScapeId);
-        //SELECT b.* FROM books b JOIN authors a ON b.author_id = a.author_id WHERE a.author_id = :authorId
-//SELECT b FROM Book b JOIN b.author a WHERE a.authorId = :authorId
         String sql = "SELECT b FROM Sound b JOIN b.soundscape a WHERE a.id = :soundScapeId";
         TypedQuery<Sound> sounds = entityManager.createQuery(sql, Sound.class);
         sounds.setParameter("soundScapeId", soundScapeId);
@@ -53,6 +50,30 @@ public class SoundscapeDAO implements ISoundscapeDAO{
     public Preset getPresetById(int presetId) {
         Preset preset = entityManager.find(Preset.class, presetId);
         return preset;
+    }
+
+    @Override
+    public List<Preset> getPresetsByUserAndSoundscape(String username, int soundscapeId) {
+        TypedQuery<Preset> presets = entityManager.createQuery(
+                "SELECT p FROM Preset p JOIN p.associatedSoundscape s " +
+                        "WHERE p.associatedUsername = :username " +
+                        "AND s.id = :soundscapeId", Preset.class)
+                .setParameter("username", username)
+                .setParameter("soundscapeId", soundscapeId);
+
+        return presets.getResultList();
+    }
+
+    @Override
+    public List<Preset> getDefaultPresetsForSoundscape(int soundscapeId) {
+        TypedQuery<Preset> presets = entityManager.createQuery(
+                        "SELECT p FROM Preset p JOIN p.associatedSoundscape s " +
+                                "WHERE p.associatedUsername = :username " +
+                                "AND s.id = :soundscapeId", Preset.class)
+                .setParameter("username", "default")
+                .setParameter("soundscapeId", soundscapeId);
+
+        return presets.getResultList();
     }
 
     @Override
