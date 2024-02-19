@@ -8,6 +8,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
 @Configuration
+
 public class securityConfiguration {
     @Bean
     public UserDetailsManager userDetailsManager(DataSource dataSource) {
@@ -18,6 +19,7 @@ public class securityConfiguration {
         http.authorizeHttpRequests(configurer->
                         configurer
                                 .requestMatchers("/").hasRole("USER")
+                                .requestMatchers("/style-login.css").permitAll()
                                 .requestMatchers("/addNewSoundscape/**").hasRole("ADMIN")
                                 .anyRequest().authenticated())
                 .formLogin(form->

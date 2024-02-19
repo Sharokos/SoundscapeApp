@@ -44,15 +44,3 @@ a {
     flex: 1;
     padding: 20px;
 }
-
-.audio-control {
-    margin-bottom: 20px;
-}
-
-.vertical-slider {
-    appearance: slider-vertical;
-    height: 150px;
-    width: 10px;
-    /* Rotate the slider handle to make it vertical */
-
-    /* Adjust other styles as needed */

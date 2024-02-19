@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="'Sharokos ' +${scape.soundscapeName}">Sharokos Sounscape</title>
@@ -12,38 +11,37 @@
 <body th:style="'background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8)),
                     url(../../' + ${scape.soundscapeImage} + ');'">
 
-<div id="btn_header">
-    <div id="btn_places">
-
-
-    </div>
-</div>
 <div id="flex-container">
     <a class = "flex-item" th:href="@{/main}">Back</a>
-    <form action="#" th:action="@{/savePreset}" th:object="${preset}" method="POST">
-        <div class="flex-item" id="container">
-            <input type="hidden" th:field="*{associatedSoundscape.id}" th:value="${scape.id}" />
-            <input type="hidden" th:field="*{associatedSoundscape.soundscapeName}" th:value="${scape.soundscapeName}" />
-            <input type="hidden" th:field="*{associatedUsername}" th:value="${username}" />
-
-            <div class="audio-control" th:each="sound : ${sounds}">
-                <input th:id="'audio' + ${sound.soundName}"
-                       class="vertical-slider"
-                       type="range"
-                       th:value="${preset.soundVolumes[sound.soundName]}"
-                       th:data-audio-path="'../../' + ${sound.soundPath}"
-                       min="0"
-                       max="100"
-                       th:field="*{soundVolumes[__${sound.soundName}__]}">
-                <p id="soundscapeText" th:text="${sound.soundName}"></p>
+    <form action="#" th:action="@{/savePreset}" th:object="${preset}" method="POST" class="form-style">
+            <div class="flex-item" id="container">
+                <input type="hidden" th:field="*{associatedSoundscape.id}" th:value="${scape.id}" />
+                <input type="hidden" th:field="*{associatedSoundscape.soundscapeName}" th:value="${scape.soundscapeName}" />
+                <input type="hidden" th:field="*{associatedUsername}" th:value="${username}" />
+                <div class="audio-control">
+                    <div th:each="sound : ${sounds}" class="audio-control-item">
+                        <input th:id="'audio' + ${sound.soundName}"
+                               class="vertical-slider"
+                               type="range"
+                               th:value="${preset.soundVolumes[sound.soundName]}"
+                               th:data-audio-path="'../../' + ${sound.soundPath}"
+                               min="0"
+                               max="100"
+                               th:field="*{soundVolumes[__${sound.soundName}__]}">
+                        <p id="soundscapeText" th:text="${sound.soundName}"></p>
+                    </div>
+                </div>
+                <div class="final-form">
+                    <input type="text" th:field="*{presetName}" value="Preset name..." id="name-field">
+                    <button type="submit" id="save-button">Save Preset</button>
+                </div>
             </div>
-        </div>
-        <button type="submit">Save Preset</button>
+
     </form>
     <div class="flex-item" id="menu_container">
         <div class="collapse_menu" id = "collapse_menu">
             <a id="preset_button">Presets
-<!--                <p th:text="${presetList.size()}"></p>-->
+
                 <ul id="menu-list">
                     <li th:each="pres : ${presetList}">
                         <a th:href="@{'../' + ${scape.id} + '/' + ${pres.id}}" th:text="${pres.presetName}"></a>

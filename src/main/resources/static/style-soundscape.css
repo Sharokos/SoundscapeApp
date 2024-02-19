@@ -11,38 +11,38 @@ a {
   font-weight: normal;   /* Removes bold */
 }
 
-#container {
-    display: flex;
-    height: 100vh;
-    align-items: center;
-}
-
 #soundscapeText{
     color: #b9c6d2;
 }
 
-#btn_header{
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: space-around;
-    height: 15%;
-}
 div#menu_container {
     background-color: rgba(0, 0, 0, 0.5);
 }
 #menu-list{
       display: none;
-      height: 100vh;
+
       width: 200px;
       background-color: rgba(0, 0, 0, 0.5);
 
 }
-
-#btn_places{
-    height: 15%;
-
-    align-items: center;
+#name-field{
+    display: block;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    color: #b9c6d2;
+}
+#preset_button{
+    color: #b9c6d2;
+}
+#save-button{
+    display: block;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    color: #b9c6d2;
+}
+a:-webkit-any-link {
+    color: #b9c6d2; /* your desired color */
+    text-decoration: none; /* optional: override text-decoration */
 }
 #menu-list{
 color: #b9c6d2;
@@ -51,41 +51,48 @@ color: #b9c6d2;
 #flex-container{
     display: flex;
     height: 100vh; /* 100% of the viewport height */
-    flex-direction: column;
-    flex-wrap: wrap;
+    flex-direction: row;
+    flex-wrap: nowrap;
     align-content: space-between;
+    justify-content: space-between;
     }
-}
-.flex-item {
-    flex-grow: 1;
-}
-flex-item:nth-child(1) {
-    flex-basis: 0 0 25%;
-}
 
-.flex-item:nth-child(2) {
-    flex-basis: 0 0 50%;
-}
 
-.flex-item:nth-child(3) {
-    flex-basis: 0 0 25%;
-}
 #container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      padding: 2%;
-    }
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 2%;
+    flex-direction: column;
 
+}
+.audio-control-item {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 2vw;
+    /* Add any additional styling as needed */
+}
+form.form-style {
+    margin: 5%;
+
+}
 .audio-control {
-      width: 5%; /* Adjust the width as needed */
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    width: 90%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    align-content: space-between;
+    justify-content: space-between;
 }
 
+.final-form {
+    display: flex;
+    align-items: baseline;
+    flex-direction: row;
+    justify-content: center;
+}
 .vertical-slider {
     appearance: slider-vertical;
     height: 180px;
