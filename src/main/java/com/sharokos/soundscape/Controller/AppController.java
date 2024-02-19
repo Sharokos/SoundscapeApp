@@ -45,13 +45,19 @@ public class AppController {
         List<Preset> userPresets = soundscapeService.getPresetByUserAndSoundscape(username, soundscapeId);
         List<Preset> defaultPresets = soundscapeService.getDefaultPresets(soundscapeId);
         Preset preset = soundscapeService.getPresetById(presetId);
+
         List<Preset> allPresets = new ArrayList<Preset>();
         allPresets.addAll(userPresets);
         allPresets.addAll(defaultPresets);
+
+        for (Preset item : allPresets) {
+            System.out.println(item.getPresetName());
+        }
         model.addAttribute("sounds", sounds);
         model.addAttribute("scape", scape);
-        model.addAttribute("presets", allPresets);
+        model.addAttribute("presetList", allPresets);
         model.addAttribute("preset", preset);
+        model.addAttribute("username", username);
         return "soundscape-user";
     }
 
