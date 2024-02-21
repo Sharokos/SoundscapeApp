@@ -1,11 +1,13 @@
 package com.sharokos.soundscape.dao;
 
+import com.sharokos.soundscape.Model.Authority;
 import com.sharokos.soundscape.Model.Preset;
 import com.sharokos.soundscape.Model.Sound;
 import com.sharokos.soundscape.Model.Soundscape;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -82,5 +84,15 @@ public class SoundscapeDAO implements ISoundscapeDAO{
             thePreset.setPresetName("DefaultSave");
         }
         return entityManager.merge(thePreset);
+    }
+
+    @Override
+    public User saveUser(User theUser) {
+        return entityManager.merge(theUser);
+    }
+
+    @Override
+    public Authority saveAuthority(Authority authority) {
+        return entityManager.merge(authority);
     }
 }

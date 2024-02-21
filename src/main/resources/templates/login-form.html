@@ -6,23 +6,23 @@
         <link rel="stylesheet"  href="/style-login.css">
     </head>
     <body>
+            <div class="login-container">
+                <h2>Soundscape Login</h2>
+                <form action="#" th:action="@{/authenticateTheUser}" method="POST" class="login-form">
+                    <div th:if="${param.error}">
+                        <i> Invalid username or password!</i>
 
-        <h3>Soundscape Login</h3>
+                    </div>
+                    <div th:if="${param.logout}">
+                        <i> You have just logged out!</i>
+                    </div>
+                    <p>User name: <input type="text" name="username"/> </p>
 
-        <form action="#" th:action="@{/authenticateTheUser}" method="POST">
-            <div th:if="${param.error}">
-                <i> Invalid username or password!</i>
-
+                    <p>Password: <input type="password" name="password"/></p>
+                    <input type="submit" value="Login">
+                </form>
+                <a th:href="@{/registerUser}"> Register!</a>
             </div>
-            <div th:if="${param.logout}">
-                <i> You have just logged out!</i>
-            </div>
-            <p>User name: <input type="text" name="username"/> </p>
 
-            <p>Password: <input type="password" name="password"/></p>
-            <input type="submit" value="Login">
-
-
-        </form>
     </body>
 </html>
