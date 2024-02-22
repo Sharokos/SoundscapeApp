@@ -1,6 +1,7 @@
 package com.sharokos.soundscape.service;
 
 import com.sharokos.soundscape.Model.*;
+import com.sharokos.soundscape.dao.SoundDAO;
 import com.sharokos.soundscape.dao.SoundscapeDAO;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +15,18 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class SoundscapeService implements ISoundscapeService{
+public class SoundService implements ISoundService{
 
-    private SoundscapeDAO soundscapeDAO;
+    private SoundDAO soundDAO;
 
     @Autowired
-    public SoundscapeService(SoundscapeDAO soundscapeDAO){
-        this.soundscapeDAO = soundscapeDAO;
-    }
-    @Override
-    public Soundscape getSoundscapeById(int id) {
-        return soundscapeDAO.getSoundscapeById(id);
-    }
+    public SoundService(SoundDAO soundDAO){
+        this.soundDAO = soundDAO;
 
+    }
     @Override
-    public List<Soundscape> getAllSoundscapes() {
-        return soundscapeDAO.getAllSoundscapes();
+    public List<Sound> getSoundsBySoundscape(Soundscape scape) {
+        return soundDAO.getSoundsFromSoundscape(scape);
     }
 
 }

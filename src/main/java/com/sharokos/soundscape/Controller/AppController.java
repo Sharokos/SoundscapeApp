@@ -4,7 +4,10 @@ import com.sharokos.soundscape.Model.CustomUser;
 import com.sharokos.soundscape.Model.Sound;
 import com.sharokos.soundscape.Model.Preset;
 import com.sharokos.soundscape.Model.Soundscape;
+import com.sharokos.soundscape.service.IPresetService;
+import com.sharokos.soundscape.service.ISoundService;
 import com.sharokos.soundscape.service.ISoundscapeService;
+import com.sharokos.soundscape.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,23 +27,24 @@ import java.util.Set;
 @Controller
 public class AppController {
     private ISoundscapeService soundscapeService;
+    private IPresetService presetService;
+    private IUserService userService;
+    private ISoundService soundService;
 
     @Autowired
-    public AppController(ISoundscapeService soundscapeService){
+    public AppController(ISoundscapeService soundscapeService, IPresetService presetService,
+                         IUserService userService, ISoundService soundService){
         this.soundscapeService = soundscapeService;
+        this.presetService = presetService;
+        this.userService = userService;
+        this.soundService = soundService;
 
     }
     @GetMapping("/main")
     public String showMainPage(Model model){
-
-
+            //Display every soundscape in the database
             List<Soundscape> soundScapes = soundscapeService.getAllSoundscapes();
-
             model.addAttribute("soundScapes", soundScapes);
-
-
-
-
         return "main-page";
     }
     @GetMapping("/soundscape/{soundscapeId}/{presetId}")
@@ -51,26 +55,22 @@ public class AppController {
         String username = authentication.getName();
         System.out.println("Logged in user is: " + username);
         Soundscape scape = soundscapeService.getSoundscapeById(soundscapeId);
-        List<Sound> sounds = soundscapeService.getSoundsBySoundscape(scape);
-        List<Preset> userPresets = soundscapeService.getPresetByUserAndSoundscape(username, soundscapeId);
-        List<Preset> defaultPresets = soundscapeService.getDefaultPresets(soundscapeId);
-        Preset preset = soundscapeService.getPresetById(presetId);
+        List<Sound> sounds = soundService.getSoundsBySoundscape(scape);
+        List<Preset> userPresets = presetService.getPresetByUserAndSoundscape(username, soundscapeId);
+        List<Preset> defaultPresets = presetService.getDefaultPresets(soundscapeId);
+        Preset preset = presetService.getPresetById(presetId);
         preset.setAssociatedUsername(username);
         List<Preset> allPresets = new ArrayList<Preset>();
         allPresets.addAll(userPresets);
         allPresets.addAll(defaultPresets);
 
-        for (Preset item : allPresets) {
-            System.out.println(item.getPresetName());
-        }
-        System.out.println("(END) Logged in user is: " + username);
+
         model.addAttribute("username", username);
         model.addAttribute("sounds", sounds);
         model.addAttribute("scape", scape);
         model.addAttribute("presetList", allPresets);
         model.addAttribute("preset", preset);
 
-        System.out.println("(END) Logged in user is: " + username);
         return "soundscape-user";
     }
 
@@ -86,16 +86,13 @@ public class AppController {
 
     @PostMapping("/register")
     public String registerSave(@ModelAttribute CustomUser theUser){
-
-        System.out.println("Registered!" + theUser.getUsername());
-        User savedUser = soundscapeService.saveUser(theUser);
+        User savedUser = userService.saveUser(theUser);
         return "redirect:/main";
     }
     @PostMapping("/savePreset")
     public String savePreset(@ModelAttribute Preset thePreset){
         thePreset.setId(0);
-        Preset savedPreset = soundscapeService.savePreset(thePreset);
-        System.out.println("Preset with username: " + thePreset.getAssociatedUsername());
+        Preset savedPreset = presetService.savePreset(thePreset);
         // you can also retrieve the soundScape Id of the preset after you implement this. Get the Id and use it in the URL to navigate back
         int saveId = savedPreset.getId();
         return "redirect:/soundscape/1/" +saveId;
