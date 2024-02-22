@@ -28,23 +28,33 @@ public class UserService implements IUserService{
     @Override
     @Transactional
     public User saveUser(CustomUser theUser) {
+
        PasswordEncoder encoder = new BCryptPasswordEncoder();
-       Authority auth = new Authority();
-       AuthorityId authId = new AuthorityId();
-        authId.setUsername(theUser.getUsername());
-        auth.setId(authId);
-        Set<Authority> singleAuth = new HashSet<>();
-        singleAuth.add(auth);
-       theUser.setAuthorities(singleAuth);
+       // Fill in the remaining fields for the new user and encrypt password
+       theUser.setAuthorities(generateDefaultAuthorityForUser(theUser));
        theUser.setPassword("{bcrypt}" + encoder.encode(theUser.getPassword()));
        theUser.setEnabled(true);
+
        return userDAO.saveUser(theUser);
     }
+
     @Override
-    @Transactional
-    public Authority saveAuthority(Authority authority) {
+    public boolean usernameExists(String username) {
 
+        return userDAO.usernameExists(username);
+    }
 
-        return userDAO.saveAuthority(authority);
+    //Utility function to keep the code clean in the saveUser function
+    public Set<Authority> generateDefaultAuthorityForUser(CustomUser theUser){
+        //Create return set
+        Set<Authority> returnAuth = new HashSet<>();
+        //Create authority and authorityId and populate them
+        Authority auth = new Authority();
+        AuthorityId authId = new AuthorityId();
+        authId.setUsername(theUser.getUsername());
+        auth.setId(authId);
+
+        returnAuth.add(auth);
+        return returnAuth;
     }
 }

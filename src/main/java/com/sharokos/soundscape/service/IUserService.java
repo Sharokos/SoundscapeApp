@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface IUserService {
     User saveUser(CustomUser theUser);
-    Authority saveAuthority(Authority authority);
+    boolean usernameExists(String username);
 }

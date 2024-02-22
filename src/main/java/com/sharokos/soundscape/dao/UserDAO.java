@@ -1,6 +1,7 @@
 package com.sharokos.soundscape.dao;
 
 import com.sharokos.soundscape.Model.Authority;
+import com.sharokos.soundscape.Model.CustomUser;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -19,7 +20,9 @@ public class UserDAO implements IUserDAO{
     }
 
     @Override
-    public Authority saveAuthority(Authority authority) {
-        return entityManager.merge(authority);
+    public boolean usernameExists(String username) {
+        CustomUser foundUser = entityManager.find(CustomUser.class,username);
+        return foundUser != null;
     }
+
 }

@@ -17,7 +17,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,23 +51,24 @@ public class AppController {
     }
     @GetMapping("/soundscape/{soundscapeId}/{presetId}")
     public String showSoundscape(@PathVariable int soundscapeId, @PathVariable int presetId, Model model){
+        // Get current username
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        // Get the username
         String username = authentication.getName();
-        System.out.println("Logged in user is: " + username);
+
+
         Soundscape scape = soundscapeService.getSoundscapeById(soundscapeId);
         List<Sound> sounds = soundService.getSoundsBySoundscape(scape);
         List<Preset> userPresets = presetService.getPresetByUserAndSoundscape(username, soundscapeId);
         List<Preset> defaultPresets = presetService.getDefaultPresets(soundscapeId);
         Preset preset = presetService.getPresetById(presetId);
         preset.setAssociatedUsername(username);
+
+
         List<Preset> allPresets = new ArrayList<Preset>();
         allPresets.addAll(userPresets);
         allPresets.addAll(defaultPresets);
 
 
-        model.addAttribute("username", username);
         model.addAttribute("sounds", sounds);
         model.addAttribute("scape", scape);
         model.addAttribute("presetList", allPresets);
@@ -85,7 +88,17 @@ public class AppController {
     }
 
     @PostMapping("/register")
-    public String registerSave(@ModelAttribute CustomUser theUser){
+    public String registerSave(@ModelAttribute("theUser") @Valid CustomUser theUser, BindingResult result){
+        //Register only if username does not already exist;
+        if (userService.usernameExists(theUser.getUsername())) {
+            result.rejectValue("username", "error.user", "User already exists!");
+            return "register-form";
+        }
+        //Password confirmation;
+        if (result.hasErrors() || !theUser.getPassword().equals(theUser.getConfirmPassword())) {
+            result.rejectValue("confirmPassword", "error.user", "Passwords do not match!");
+            return "register-form";
+        }
         User savedUser = userService.saveUser(theUser);
         return "redirect:/main";
     }
@@ -93,8 +106,8 @@ public class AppController {
     public String savePreset(@ModelAttribute Preset thePreset){
         thePreset.setId(0);
         Preset savedPreset = presetService.savePreset(thePreset);
-        // you can also retrieve the soundScape Id of the preset after you implement this. Get the Id and use it in the URL to navigate back
         int saveId = savedPreset.getId();
-        return "redirect:/soundscape/1/" +saveId;
+        int soundscapeId = savedPreset.getAssociatedSoundscape().getId();
+        return "redirect:/soundscape/" + soundscapeId + "/" + saveId;
     }
 }

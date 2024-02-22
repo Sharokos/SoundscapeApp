@@ -17,7 +17,6 @@ import java.util.Set;
 public class SoundscapeService implements ISoundscapeService{
 
     private SoundscapeDAO soundscapeDAO;
-
     @Autowired
     public SoundscapeService(SoundscapeDAO soundscapeDAO){
         this.soundscapeDAO = soundscapeDAO;

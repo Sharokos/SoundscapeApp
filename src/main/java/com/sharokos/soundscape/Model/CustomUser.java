@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 import java.util.Set;
 
@@ -13,13 +14,27 @@ import java.util.Set;
 public class CustomUser extends User {
     @Column(unique = true, name="username")
     @Id
+    @NotEmpty(message = "Username is required")
     private String username;
     @Column(name="password")
+    @NotEmpty(message = "Username is required")
     private String password;
     @Column(columnDefinition = "tinyint(1) default 1")
     private boolean enabled;
     @OneToMany(mappedBy = "id.username", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Authority> authorities;
+    @Transient
+    @NotEmpty(message = "Username is required")
+    private String confirmPassword;
+
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 
     @Override
     public boolean isEnabled() {

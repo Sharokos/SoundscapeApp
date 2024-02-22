@@ -16,12 +16,15 @@
                     <div th:if="${param.logout}">
                         <i> You have just logged out!</i>
                     </div>
-                    <p>User name: <input type="text" name="username"/> </p>
+                    <p>User name: <input type="text" name="username" autocomplete="off"/> </p>
 
                     <p>Password: <input type="password" name="password"/></p>
-                    <input type="submit" value="Login">
+                    <div id="login-register">
+                        <a th:href="@{/registerUser}" class="form_buttons"> Register</a>
+                        <input type="submit" class="form_buttons" id="login" value="Login">
+                    </div>
                 </form>
-                <a th:href="@{/registerUser}"> Register!</a>
+
             </div>
 
     </body>

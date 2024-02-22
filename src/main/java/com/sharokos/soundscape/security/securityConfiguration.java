@@ -22,7 +22,7 @@ public class securityConfiguration {
         http.authorizeHttpRequests(configurer->
                         configurer
                                 .requestMatchers("/").hasRole("USER")
-                                .requestMatchers("/style-login.css").permitAll()
+                                .requestMatchers("/style-login.css","/style-register.css").permitAll()
                                 .requestMatchers("/registerUser").permitAll()
                                 .requestMatchers("/register").permitAll()
                                 .requestMatchers("/addNewSoundscape/**").hasRole("ADMIN")

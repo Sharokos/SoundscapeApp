@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface IUserDAO {
     User saveUser(User theUser);
-    Authority saveAuthority(Authority authority);
+    boolean usernameExists(String username);
 }
