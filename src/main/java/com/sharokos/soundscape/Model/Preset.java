@@ -1,8 +1,6 @@
 package com.sharokos.soundscape.Model;
 
 import jakarta.persistence.*;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Map;
 @Entity
@@ -23,11 +21,24 @@ public class Preset {
     @MapKeyColumn(name = "sound_name")
     @Column(name = "volume")
     private Map<String, Integer> soundVolumes;
+    @ElementCollection
+    @CollectionTable(name = "presetfreq", joinColumns = @JoinColumn(name = "preset_id"))
+    @MapKeyColumn(name = "sound_name")
+    @Column(name = "frequency")
+    private Map<String, Integer> soundFrequency;
     @ManyToOne
     @JoinColumn(name = "associated_soundscape_id", nullable = false)
     private Soundscape associatedSoundscape;
     @Column(name = "associated_username", nullable = false)
     private String associatedUsername;
+
+    public Map<String, Integer> getSoundFrequency() {
+        return soundFrequency;
+    }
+
+    public void setSoundFrequency(Map<String, Integer> soundFrequency) {
+        this.soundFrequency = soundFrequency;
+    }
 
     public Soundscape getAssociatedSoundscape() {
         return associatedSoundscape;
@@ -68,5 +79,5 @@ public class Preset {
     public void setSoundVolumes(Map<String, Integer> soundVolumes) {
         this.soundVolumes = soundVolumes;
     }
-// Getters and setters
+
 }

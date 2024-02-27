@@ -11,6 +11,8 @@ public class Sound {
     private String soundPath;
     @Column(name="image_path")
     private String imagePath;
+    @Column(name="is_drone")
+    private Boolean drone;
     @ManyToOne
     @JoinColumn(name = "id", nullable = false)
     private Soundscape soundscape;
@@ -18,6 +20,14 @@ public class Sound {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="sound_id")
     private int soundId;
+
+    public Boolean getDrone() {
+        return drone;
+    }
+
+    public void setDrone(Boolean drone) {
+        this.drone = drone;
+    }
 
     public String getImagePath() {
         return imagePath;

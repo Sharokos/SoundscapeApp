@@ -16,6 +16,7 @@ CREATE TABLE Sound (
     `sound_name` VARCHAR(255) NOT NULL,
     `sound_path` VARCHAR(255) NOT NULL,
     `image_path` VARCHAR(255) NOT NULL,
+    `is_drone` boolean NOT NULL,
     `id` INT,
     FOREIGN KEY (id) REFERENCES Soundscape(id)
 );

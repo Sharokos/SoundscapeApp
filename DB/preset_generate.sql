@@ -1,5 +1,6 @@
 USE `soundscape_directory`;
 DROP TABLE IF EXISTS `presetsound`;
+DROP TABLE IF EXISTS `presetfreq`;
 DROP TABLE IF EXISTS `preset`;
 
 
@@ -22,14 +23,32 @@ CREATE TABLE PresetSound (
     preset_id INT,
     sound_name VARCHAR(255) NOT NULL,
     volume INT,
-	CONSTRAINT `FK_PRESET` 
+	CONSTRAINT `FK_PRESET_SOUND` 
 	FOREIGN KEY (`preset_id`) 
 	REFERENCES `preset` (`id`) 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE PresetFreq (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    preset_id INT,
+    sound_name VARCHAR(255) NOT NULL,
+    frequency INT,
+	CONSTRAINT `FK_PRESET_FREQ` 
+	FOREIGN KEY (`preset_id`) 
+	REFERENCES `preset` (`id`) 
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 INSERT INTO Preset VALUES
 (1,1,"user","Default_test");
+
 INSERT INTO PresetSound VALUES
 (1001,1, 'Fireplace', 50),
 (1002,1, 'Wind', 50),
 (1003,1, 'Steps', 50),
 (1004,1, 'Page', 50);
+
+INSERT INTO PresetFreq VALUES
+(1001,1, 'Fireplace', 1),
+(1002,1, 'Wind', 1),
+(1003,1, 'Steps', 1),
+(1004,1, 'Page', 1);

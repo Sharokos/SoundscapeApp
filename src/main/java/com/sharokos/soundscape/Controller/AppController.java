@@ -21,10 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class AppController {
@@ -62,8 +59,14 @@ public class AppController {
         List<Preset> defaultPresets = presetService.getDefaultPresets(soundscapeId);
         Preset preset = presetService.getPresetById(presetId);
         preset.setAssociatedUsername(username);
+        Map<String,Integer> freqMap =  preset.getSoundFrequency();
 
-
+        for (String key : freqMap.keySet()) {
+            System.out.println("Key: " + key);
+        }
+        for (Integer value : freqMap.values()) {
+            System.out.println("Value: " + value);
+        }
         List<Preset> allPresets = new ArrayList<Preset>();
         allPresets.addAll(userPresets);
         allPresets.addAll(defaultPresets);

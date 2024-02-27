@@ -5,8 +5,8 @@ INSERT INTO soundscape VALUES
 (3, 'Mountain', 'A soundscape for the mountain-lovers', 'Mountain/Images/mountain.jpg'),
 (4, 'Medieval Village', 'A soundscape for the those who long for the simpler village days.', 'Village/Images/village.jpg');
 
-INSERT INTO sound  VALUES
-(1001, 'Fireplace', 'DarkLibrary/Sound/fire.mp3','DarkLibrary/Images/library.jpg', 1),
-(1002, 'Wind','DarkLibrary/Sound/wind.mp3','DarkLibrary/Images/library.jpg', 1),
-(1003, 'Steps','DarkLibrary/Sound/steps.mp3','DarkLibrary/Images/library.jpg', 1),
-(1004, 'Page','DarkLibrary/Sound/page.mp3','DarkLibrary/Images/library.jpg', 1);
+INSERT INTO sound VALUES
+(1001, 'Fireplace', 'DarkLibrary/Sound/fire.mp3','DarkLibrary/Images/library.jpg', true, 1),
+(1002, 'Wind','DarkLibrary/Sound/wind.mp3','DarkLibrary/Images/library.jpg', true, 1),
+(1003, 'Steps','DarkLibrary/Sound/steps.mp3','DarkLpresetsoundibrary/Images/library.jpg', false, 1),
+(1004, 'Page','DarkLibrary/Sound/page.mp3','DarkLibrary/Images/library.jpg', false, 1);

@@ -20,15 +20,26 @@
                 <input type="hidden" th:field="*{associatedUsername}" th:value="${username}" />
                 <div class="audio-control">
                     <div th:each="sound : ${sounds}" class="audio-control-item">
-                        <input th:id="'audio' + ${sound.soundName}"
+                        <input th:id="'audio_' + ${sound.soundName}"
                                class="vertical-slider"
                                type="range"
                                th:value="${preset.soundVolumes[sound.soundName]}"
                                th:data-audio-path="'../../' + ${sound.soundPath}"
+                               th:attr="data-sound-drone=${sound.drone}"
                                min="0"
                                max="100"
                                th:field="*{soundVolumes[__${sound.soundName}__]}">
-                        <p id="soundscapeText" th:text="${sound.soundName}"></p>
+                        <button th:id="'button_' + ${sound.soundName}"
+                                class="soundscapeText"
+                                type="button"
+
+                                th:text="${sound.soundName}"
+                                th:attr="data-preset-sound-frequency=${preset.soundFrequency[sound.soundName]}"
+                                th:field="*{soundFrequency[__${sound.soundName}__]}"
+                                onclick="incrementFrequency(this.id)">
+
+                        >Click</button>
+
                     </div>
                 </div>
                 <div class="final-form">
@@ -55,7 +66,8 @@
 
 
 
-<script src="../../script.js"> </script>
+<script th:src="@{'../../script.js'}" defer="defer"> </script>
+
 
 
 
