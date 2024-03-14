@@ -97,7 +97,7 @@ function computeTimer(freq){
         break;
       case 2:
         // Each ~ 5 seconds
-        intervalTimer = Math.random() * 4 * secsInMsecs + 3 * secsInMsecs; //anything between 12 and 18 seconds
+        intervalTimer = Math.random() * 4 * secsInMsecs + 3 * secsInMsecs; //anything between 3 and 7 seconds
         break;
       default:
         console.log("Should not be reachable");
@@ -136,15 +136,43 @@ function getProbabilityFromFrequency(freq){
     }
     return prob;
 }
+
+function getOpacityFromFrequency(freq){
+    op = 1;
+    console.log("Freq in function: "+freq)
+    switch (freq) {
+      case 0:
+        // 25 - 35 %
+        op = 0.1;
+        break;
+      case 1:
+        // 45 - 55 %
+        op = 0.5;
+        break;
+      case 2:
+        // 60 - 70 %
+        op = 1;
+        break;
+      default:
+        console.log("Should not be reachable");
+    }
+    console.log("Opacity in function: " + op)
+    return op;
+
+}
 function incrementFrequency(id){
     var btnFreq = document.getElementById(id);
     var freq = btnFreq.getAttribute('data-preset-sound-frequency')
     console.log("Frequency read from html: " + freq);
-    freq = parseInt(freq);
 
+
+    freq = parseInt(freq);
+    var op = getOpacityFromFrequency(freq);
+    btnFreq.style.opacity = op;
+    console.log("Opacity is: " + op);
     freq = freq + 1;
     if (freq>2){
-        freq = 0
+        freq = 0;
     }
     console.log("Frequency after increment: " + freq);
     btnFreq.setAttribute('data-preset-sound-frequency',freq)

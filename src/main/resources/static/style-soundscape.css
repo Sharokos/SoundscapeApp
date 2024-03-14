@@ -10,9 +10,34 @@ a {
   text-decoration: none; /* Removes underline */
   font-weight: normal;   /* Removes bold */
 }
+.menu-item {
+    width: 80%; /* Two items per row, adjust as needed */
+    padding: 10px;
+}
+
+.menu-item div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.presetName{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-right: 10px; /* Optional margin for better appearance */
+}
+
 
 .soundscapeText{
+    width: 40px; /* Set the width of the button */
+    height: 40px; /* Set the height of the button */
     color: #b9c6d2;
+    background-size: contain; /* Cover the entire button with the background image */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+      border: none; /* Remove the button border */
+      border-radius: 50%; /* Make the button round */
+      cursor: pointer; /* Change cursor to pointer on hover */
 }
 
 div#menu_container {

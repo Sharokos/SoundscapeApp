@@ -32,13 +32,11 @@
                         <button th:id="'button_' + ${sound.soundName}"
                                 class="soundscapeText"
                                 type="button"
-
-                                th:text="${sound.soundName}"
                                 th:attr="data-preset-sound-frequency=${preset.soundFrequency[sound.soundName]}"
                                 th:field="*{soundFrequency[__${sound.soundName}__]}"
-                                onclick="incrementFrequency(this.id)">
-
-                        >Click</button>
+                                onclick="incrementFrequency(this.id)"
+                                th:style="'background-image: url(../../' + ${sound.imagePath} + ');'">
+                        </button>
 
                     </div>
                 </div>
@@ -54,8 +52,12 @@
             <a id="preset_button">Presets
 
                 <ul id="menu-list">
-                    <li th:each="pres : ${presetList}">
-                        <a th:href="@{'../' + ${scape.id} + '/' + ${pres.id}}" th:text="${pres.presetName}"></a>
+                    <li th:each="pres : ${presetList}" class="menu-item">
+                        <div>
+                            <a th:href="@{'../' + ${scape.id} + '/' + ${pres.id}}" th:text="${pres.presetName}"
+                            class="presetName"></a>
+                            <button class="preset-button">Button</button>
+                        </div>
                     </li>
                 </ul>
             </a>

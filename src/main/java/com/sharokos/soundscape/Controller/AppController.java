@@ -41,9 +41,12 @@ public class AppController {
     }
     @GetMapping("/main")
     public String showMainPage(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
             //Display every soundscape in the database
             List<Soundscape> soundScapes = soundscapeService.getAllSoundscapes();
             model.addAttribute("soundScapes", soundScapes);
+            model.addAttribute("username", username);
         return "main-page";
     }
     @GetMapping("/soundscape/{soundscapeId}/{presetId}")

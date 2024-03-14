@@ -32,7 +32,12 @@ public class securityConfiguration {
                                 .loginProcessingUrl("/authenticateTheUser")
                                 .permitAll()
                                 .defaultSuccessUrl("/main", true))
-                .logout(logout->logout.permitAll());
+                .logout(logout->logout.permitAll()
+                        .logoutUrl("/logout") // The URL where the logout request will be sent
+                        .logoutSuccessUrl("/login?logout") // Redirect to this URL after successful logout
+                        .invalidateHttpSession(true) // Invalidate the HttpSession
+                );
+
 
         return http.build();
 
