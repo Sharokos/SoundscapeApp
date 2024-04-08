@@ -41,13 +41,14 @@ a {
 }
 
 div#menu_container {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color : rgba(0, 0, 0, 0.5);
+    overflow-y : scroll;
 }
 #menu-list{
-      display: none;
+      display : none;
 
       width: 200px;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color : rgba(0, 0, 0, 0.5);
 
 }
 #name-field{
@@ -58,6 +59,10 @@ div#menu_container {
 }
 #preset_button{
     color: #b9c6d2;
+}
+
+#collapse_menu{
+    overflow-y: auto;
 }
 #save-button{
     display: block;
@@ -72,9 +77,12 @@ a:-webkit-any-link {
 #menu-list{
 color: #b9c6d2;
 }
-
+::-webkit-scrollbar {
+  width: 0px; /* Width of the entire scrollbar */
+}
 #flex-container{
     display: flex;
+    overflow: hidden;
     height: 100vh; /* 100% of the viewport height */
     flex-direction: row;
     flex-wrap: nowrap;
@@ -118,8 +126,13 @@ form.form-style {
     flex-direction: row;
     justify-content: center;
 }
+
+input[type="text" i] {
+    padding-block: 0px !important; /* Your desired padding value */
+    padding-inline: 0px !important; /* Your desired padding value */
+}
 .vertical-slider {
-    appearance: slider-vertical;
+
     height: 180px;
     width: 60px;
     background-color: #343640;

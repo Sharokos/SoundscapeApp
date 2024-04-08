@@ -1,6 +1,14 @@
 const sliders = document.querySelectorAll('.vertical-slider');
+const freqBtns = document.querySelectorAll('.soundscapeText');
 const audioElements = [];
 
+document.addEventListener("DOMContentLoaded", function() {
+        console.log("Page loaded")
+      setVolume();
+      setOpacity();
+    });
+
+function setVolume() {
 sliders.forEach(function (slider) {
     const audio = new Audio(slider.dataset.audioPath);
 
@@ -8,12 +16,16 @@ sliders.forEach(function (slider) {
     btnId = "button_" + slider.id.split("_")[1]
 
     const freqButton = document.getElementById(btnId);
+    var volume = slider.value;
 
+    var volumeLevel = volume / 100;
+
+    audio.volume = volumeLevel;
     if (slider.getAttribute('data-sound-drone') == "true"){
         audio.play();
         audio.loop = true;
         freqButton.disabled = true;
-        console.log(freqButton.disabled)
+
     }
 
     audioElements.push({ slider, audio, freqButton });
@@ -21,6 +33,8 @@ sliders.forEach(function (slider) {
         audio.volume = event.target.value / 100;
     });
 });
+};
+
 let isAudioPlaying = true;
 document.addEventListener('keydown', function (event) {
     var activeElement = document.activeElement;
@@ -167,15 +181,32 @@ function incrementFrequency(id){
 
 
     freq = parseInt(freq);
-    var op = getOpacityFromFrequency(freq);
-    btnFreq.style.opacity = op;
-    console.log("Opacity is: " + op);
+
+
     freq = freq + 1;
     if (freq>2){
         freq = 0;
     }
-    console.log("Frequency after increment: " + freq);
+    var op = getOpacityFromFrequency(freq);
+    btnFreq.style.opacity = op;
     btnFreq.setAttribute('data-preset-sound-frequency',freq)
-    btnFreq.setAttribute('field',freq)
+
+    btnFreq.setAttribute('value',freq)
+}
+
+function setOpacity(){
+    console.log("SetOpacity Called")
+    freqBtns.forEach(function (frqBtn) {
+        var freq = frqBtn.getAttribute('data-preset-sound-frequency')
+        audioId = "audio_" + frqBtn.id.split("_")[1]
+        const audioSlider = document.getElementById(btnId);
+        var isDrone = audioSlider.getAttribute('data-sound-drone')
+        if (isDrone == 'false') {
+            freq = parseInt(freq);
+            var op = getOpacityFromFrequency(freq);
+            frqBtn.style.opacity = op;
+        }
+    });
+
 }
 

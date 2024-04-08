@@ -114,6 +114,14 @@ public class AppController {
         Preset savedPreset = presetService.savePreset(thePreset);
         int saveId = savedPreset.getId();
         int soundscapeId = savedPreset.getAssociatedSoundscape().getId();
+        Map<String,Integer> freqMap =  thePreset.getSoundFrequency();
+
+        for (String key : freqMap.keySet()) {
+            System.out.println("Key when saving: " + key);
+        }
+        for (Integer value : freqMap.values()) {
+            System.out.println("Value when saving: " + value);
+        }
         return "redirect:/soundscape/" + soundscapeId + "/" + saveId;
     }
 }

@@ -23,20 +23,21 @@
                         <input th:id="'audio_' + ${sound.soundName}"
                                class="vertical-slider"
                                type="range"
+                               style="writing-mode: vertical-lr; direction: rtl"
                                th:value="${preset.soundVolumes[sound.soundName]}"
                                th:data-audio-path="'../../' + ${sound.soundPath}"
                                th:attr="data-sound-drone=${sound.drone}"
                                min="0"
                                max="100"
                                th:field="*{soundVolumes[__${sound.soundName}__]}">
-                        <button th:id="'button_' + ${sound.soundName}"
+                        <input th:id="'button_' + ${sound.soundName}"
                                 class="soundscapeText"
-                                type="button"
+                                type="text"
                                 th:attr="data-preset-sound-frequency=${preset.soundFrequency[sound.soundName]}"
                                 th:field="*{soundFrequency[__${sound.soundName}__]}"
+                                th:value="${preset.soundFrequency[sound.soundName]}"
                                 onclick="incrementFrequency(this.id)"
                                 th:style="'background-image: url(../../' + ${sound.imagePath} + ');'">
-                        </button>
 
                     </div>
                 </div>
