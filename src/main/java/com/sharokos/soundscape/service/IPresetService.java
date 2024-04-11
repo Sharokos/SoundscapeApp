@@ -10,4 +10,5 @@ public interface IPresetService {
     public List<Preset> getDefaultPresets(int soundScapeId);
     Preset getPresetById(int presetId);
     Preset savePreset(Preset thePreset);
+    void deletePreset(int presetId);
 }

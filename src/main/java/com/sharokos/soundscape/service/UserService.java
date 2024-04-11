@@ -44,6 +44,11 @@ public class UserService implements IUserService{
         return userDAO.usernameExists(username);
     }
 
+    @Override
+    public User getUserByName(String username) {
+        return userDAO.getUserByName(username);
+    }
+
     //Utility function to keep the code clean in the saveUser function
     public Set<Authority> generateDefaultAuthorityForUser(CustomUser theUser){
         //Create return set

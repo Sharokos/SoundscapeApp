@@ -21,7 +21,8 @@ public class securityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests(configurer->
                         configurer
-                                .requestMatchers("/").hasRole("USER")
+                                .requestMatchers("/**").permitAll()
+                                .requestMatchers("/main/**").permitAll()
                                 .requestMatchers("/style-login.css","/style-register.css").permitAll()
                                 .requestMatchers("/registerUser").permitAll()
                                 .requestMatchers("/register").permitAll()
@@ -34,7 +35,7 @@ public class securityConfiguration {
                                 .defaultSuccessUrl("/main", true))
                 .logout(logout->logout.permitAll()
                         .logoutUrl("/logout") // The URL where the logout request will be sent
-                        .logoutSuccessUrl("/login?logout") // Redirect to this URL after successful logout
+                        .logoutSuccessUrl("/logout-temp") // Redirect to this URL after successful logout
                         .invalidateHttpSession(true) // Invalidate the HttpSession
                 );
 

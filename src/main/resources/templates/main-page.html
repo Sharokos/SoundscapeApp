@@ -12,7 +12,7 @@
 <body>
 
 <div class="heading-bar">
-    <p th:text="${username}"> </p>
+    <p th:text="${username}" class="user"> </p>
     <form th:action="@{/logout}" method="post">
         <button type="submit">Logout</button>
     </form>

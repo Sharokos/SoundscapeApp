@@ -11,24 +11,34 @@ a {
   font-weight: normal;   /* Removes bold */
 }
 .menu-item {
-    width: 80%; /* Two items per row, adjust as needed */
-    padding: 10px;
+    width: 80%;
+    padding: 5px;
 }
-
+ul {
+    list-style-type: none;
+}
 .menu-item div {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
+.default-menu-item {
+    width: 80%;
+    padding: 5px;
+}
+.default-menu-item div{
+    display: flex;
+}
 .presetName{
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    margin-right: 10px; /* Optional margin for better appearance */
+    margin-right: 10px;
 }
 
-
+.currentPreset{
+    color: red!important;
+}
 .soundscapeText{
     width: 40px; /* Set the width of the button */
     height: 40px; /* Set the height of the button */
@@ -40,12 +50,12 @@ a {
       cursor: pointer; /* Change cursor to pointer on hover */
 }
 
-div#menu_container {
+#menu_container {
     background-color : rgba(0, 0, 0, 0.5);
     overflow-y : scroll;
 }
 #menu-list{
-      display : none;
+
 
       width: 200px;
       background-color : rgba(0, 0, 0, 0.5);
@@ -56,9 +66,20 @@ div#menu_container {
     background-color: rgba(0, 0, 0, 0.8);
     border-radius: 20px;
     color: #b9c6d2;
+    margin: 1em;
 }
 #preset_button{
+    display: block;
+    margin: 1em;
+    width: 40px; /* Set the width of the button */
+    height: 40px; /* Set the height of the button */
     color: #b9c6d2;
+    background-size: contain; /* Cover the entire button with the background image */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    border: none; /* Remove the button border */
+    border-radius: 50%; /* Make the button round */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    background-image: url('menu.png');
 }
 
 #collapse_menu{
@@ -66,7 +87,16 @@ div#menu_container {
 }
 #save-button{
     display: block;
-    background-color: rgba(0, 0, 0, 0.8);
+
+        width: 40px; /* Set the width of the button */
+        height: 40px; /* Set the height of the button */
+        color: #b9c6d2;
+        background-size: contain; /* Cover the entire button with the background image */
+        background-repeat: no-repeat; /* Prevent the background image from repeating */
+          border: none; /* Remove the button border */
+          border-radius: 50%; /* Make the button round */
+          cursor: pointer; /* Change cursor to pointer on hover */
+    background-image: url('save.png');
     border-radius: 20px;
     color: #b9c6d2;
 }
@@ -122,7 +152,7 @@ form.form-style {
 
 .final-form {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     flex-direction: row;
     justify-content: center;
 }

@@ -12,9 +12,14 @@
                     url(../../' + ${scape.soundscapeImage} + ');'">
 
 <div id="flex-container">
+
     <a class = "flex-item" th:href="@{/main}">Back</a>
-    <form action="#" th:action="@{/savePreset}" th:object="${preset}" method="POST" class="form-style">
+
+    <form action="#" th:action="@{/savePreset(soundscapeId=${scape.id})}"  th:if="${preset}"  th:object="${preset}" method="POST" class="form-style">
             <div class="flex-item" id="container">
+                <div th:if="${failedSave}">
+                    <span th:text="${failedSave}"></span>
+                </div>
                 <input type="hidden" th:field="*{associatedSoundscape.id}" th:value="${scape.id}" />
                 <input type="hidden" th:field="*{associatedSoundscape.soundscapeName}" th:value="${scape.soundscapeName}" />
                 <input type="hidden" th:field="*{associatedUsername}" th:value="${username}" />
@@ -41,27 +46,44 @@
 
                     </div>
                 </div>
-                <div class="final-form">
-                    <input type="text" th:field="*{presetName}" value="Preset name..." id="name-field">
-                    <button type="submit" id="save-button">Save Preset</button>
+                <div class="final-form" th:if="${username != 'guest'}">
+
+                    <input type="text" th:field="${preset.presetName}" id="name-field">
+                    <button type="submit" id="save-button"></button>
                 </div>
             </div>
 
     </form>
     <div class="flex-item" id="menu_container">
         <div class="collapse_menu" id = "collapse_menu">
-            <a id="preset_button">Presets
-
-                <ul id="menu-list">
-                    <li th:each="pres : ${presetList}" class="menu-item">
+            <a id="preset_button"></a>
+                <ul id="menu-list" style="display:block;">
+<!--                    Display the default presets-->
+                    <li th:each="pres : ${defaultPresetList}" class="default-menu-item">
                         <div>
                             <a th:href="@{'../' + ${scape.id} + '/' + ${pres.id}}" th:text="${pres.presetName}"
-                            class="presetName"></a>
-                            <button class="preset-button">Button</button>
+                               th:class="${preset.id == pres.id ? 'currentPreset' : 'defaultPresetName'}"
+                               ></a>
+
+                        </div>
+                    </li>
+<!--                    Display the user presets (with the option to delete them)-->
+                    <a th:if="${#lists.size(userPresetList) > 0}">User presets</a>
+                    <li th:each="pres : ${userPresetList}" class="menu-item">
+                        <div>
+                            <a th:href="@{'../' + ${scape.id} + '/' + ${pres.id}}" th:text="${pres.presetName}"
+                               th:class="${preset.id == pres.id ? 'currentPreset' : 'presetName'}"
+                               ></a>
+
+                            <a th:href="@{/deletePreset(presetId=${pres.id}, soundscapeId=${scape.id})}"
+                               onclick="if (!(confirm('Are you sure you want to delete this preset?'))) return false"
+                                class="preset-button">
+                                Delete
+                            </a>
                         </div>
                     </li>
                 </ul>
-            </a>
+
         </div>
     </div>
 </div>

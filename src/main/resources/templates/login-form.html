@@ -6,7 +6,11 @@
         <link rel="stylesheet"  href="/style-login.css">
     </head>
     <body>
+
             <div class="login-container">
+                <div th:if="${logoutMessage}">
+                    <span th:text="${logoutMessage}"></span>
+                </div>
                 <h2>Soundscape Login</h2>
                 <form action="#" th:action="@{/authenticateTheUser}" method="POST" class="login-form">
                     <div th:if="${param.error}">
@@ -23,8 +27,11 @@
                         <a th:href="@{/registerUser}" class="form_buttons"> Register</a>
                         <input type="submit" class="form_buttons" id="login" value="Login">
                     </div>
-                </form>
 
+                </form>
+                <div id="continue-guest">
+                    <a th:href="@{/main}" class="form_buttons"> Continue as guest</a>
+                </div>
             </div>
 
     </body>

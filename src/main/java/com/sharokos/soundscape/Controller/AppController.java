@@ -8,17 +8,18 @@ import com.sharokos.soundscape.service.IPresetService;
 import com.sharokos.soundscape.service.ISoundService;
 import com.sharokos.soundscape.service.ISoundscapeService;
 import com.sharokos.soundscape.service.IUserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
+
 import javax.validation.Valid;
 
 import java.util.*;
@@ -43,10 +44,14 @@ public class AppController {
     public String showMainPage(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-            //Display every soundscape in the database
-            List<Soundscape> soundScapes = soundscapeService.getAllSoundscapes();
-            model.addAttribute("soundScapes", soundScapes);
-            model.addAttribute("username", username);
+        if (Objects.equals(username, "anonymousUser")){
+            username = "guest";
+        }
+        //Display every soundscape in the database
+        List<Soundscape> soundScapes = soundscapeService.getAllSoundscapes();
+        model.addAttribute("soundScapes", soundScapes);
+        model.addAttribute("username", username);
+
         return "main-page";
     }
     @GetMapping("/soundscape/{soundscapeId}/{presetId}")
@@ -54,45 +59,61 @@ public class AppController {
         // Get current username
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-
+        if (Objects.equals(username, "anonymousUser")){
+            username = "guest";
+        }
 
         Soundscape scape = soundscapeService.getSoundscapeById(soundscapeId);
         List<Sound> sounds = soundService.getSoundsBySoundscape(scape);
         List<Preset> userPresets = presetService.getPresetByUserAndSoundscape(username, soundscapeId);
         List<Preset> defaultPresets = presetService.getDefaultPresets(soundscapeId);
         Preset preset = presetService.getPresetById(presetId);
-        preset.setAssociatedUsername(username);
-        Map<String,Integer> freqMap =  preset.getSoundFrequency();
+        if (preset == null) {
+            if(!defaultPresets.isEmpty()){
+                preset = defaultPresets.getFirst();
+                preset.setAssociatedUsername(username);
 
-        for (String key : freqMap.keySet()) {
-            System.out.println("Key: " + key);
+            }
         }
-        for (Integer value : freqMap.values()) {
-            System.out.println("Value: " + value);
+        else{
+            preset.setAssociatedUsername(username);
+
         }
-        List<Preset> allPresets = new ArrayList<Preset>();
-        allPresets.addAll(userPresets);
-        allPresets.addAll(defaultPresets);
 
 
         model.addAttribute("sounds", sounds);
         model.addAttribute("scape", scape);
-        model.addAttribute("presetList", allPresets);
+        model.addAttribute("username", username);
+        model.addAttribute("defaultPresetList", defaultPresets);
+        model.addAttribute("userPresetList", userPresets);
         model.addAttribute("preset", preset);
+
 
         return "soundscape-user";
     }
 
     @GetMapping("/showLoginPage")
-    public String showLoginPage(){
-        return "login-form";
+    public String showLoginPage(HttpServletRequest request){
+        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+        if (inputFlashMap != null) {
+            String logoutMessage = (String) inputFlashMap.get("logoutMessage");
+            return "login-form";
+        } else {
+            return "login-form";
+        }
+
     }
     @GetMapping("/registerUser")
     public String showRegistrationForm(Model model) {
         model.addAttribute("theUser", new CustomUser());
         return "register-form";
     }
+    @GetMapping("/logout-temp")
+    public String logoutSuccess(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("logoutMessage", "Logged out successful!");
 
+        return "redirect:/showLoginPage";
+    }
     @PostMapping("/register")
     public String registerSave(@ModelAttribute("theUser") @Valid CustomUser theUser, BindingResult result){
         //Register only if username does not already exist;
@@ -109,19 +130,38 @@ public class AppController {
         return "redirect:/main";
     }
     @PostMapping("/savePreset")
-    public String savePreset(@ModelAttribute Preset thePreset){
-        thePreset.setId(0);
-        Preset savedPreset = presetService.savePreset(thePreset);
-        int saveId = savedPreset.getId();
-        int soundscapeId = savedPreset.getAssociatedSoundscape().getId();
-        Map<String,Integer> freqMap =  thePreset.getSoundFrequency();
+    public String savePreset(@ModelAttribute Preset thePreset, RedirectAttributes redirectAttributes,
+                             @RequestParam("soundscapeId") int scapeId){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        CustomUser currentUser = (CustomUser) userService.getUserByName(username);
+        if (currentUser.getNumberOfPresets()<7){
+            currentUser.incrementPresets();
+            thePreset.setId(0);
+            Preset savedPreset = presetService.savePreset(thePreset);
+            int saveId = savedPreset.getId();
+            int soundscapeId = savedPreset.getAssociatedSoundscape().getId();
+            return "redirect:/soundscape/" + soundscapeId + "/" + saveId;
+        }
+        else{
+            redirectAttributes.addFlashAttribute("failedSave", "Maximum number of presets reached. Could not save!");
+            List<Preset> defaultPresets = presetService.getDefaultPresets(scapeId);
+            int fallbackPresetId = defaultPresets.getFirst().getId();
+            return "redirect:/soundscape/" + scapeId + "/" + fallbackPresetId;
+        }
+    }
 
-        for (String key : freqMap.keySet()) {
-            System.out.println("Key when saving: " + key);
-        }
-        for (Integer value : freqMap.values()) {
-            System.out.println("Value when saving: " + value);
-        }
-        return "redirect:/soundscape/" + soundscapeId + "/" + saveId;
+    @GetMapping("/deletePreset")
+    public String deletePreset(@RequestParam("presetId") int id, @RequestParam("soundscapeId") int scapeId){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        CustomUser currentUser = (CustomUser) userService.getUserByName(username);
+
+        currentUser.decrementPresets();
+
+        presetService.deletePreset(id);
+        List<Preset> defaultPresets = presetService.getDefaultPresets(scapeId);
+        int fallbackPresetId = defaultPresets.getFirst().getId();
+        return "redirect:/soundscape/" + scapeId + "/" + fallbackPresetId;
     }
 }

@@ -8,4 +8,5 @@ import java.util.List;
 public interface IUserService {
     User saveUser(CustomUser theUser);
     boolean usernameExists(String username);
+    User getUserByName(String username);
 }

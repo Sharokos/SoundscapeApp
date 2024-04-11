@@ -25,4 +25,9 @@ public class UserDAO implements IUserDAO{
         return foundUser != null;
     }
 
+    @Override
+    public User getUserByName(String username) {
+        return entityManager.find(CustomUser.class,username);
+    }
+
 }

@@ -41,5 +41,10 @@ public class PresetService implements IPresetService{
     public Preset savePreset(Preset thePreset) {
         return presetDAO.savePreset(thePreset);
     }
+    @Override
+    @Transactional
+    public void deletePreset(int presetId) {
+        presetDAO.deletePreset(presetId);
+    }
 
 }

@@ -3,11 +3,23 @@ body {
     padding: 0;
     font-family: Arial, sans-serif;
     background-color: #252329;
+    overflow-x:hidden;
 }
-
+::-webkit-scrollbar {
+  width: 0px; /* Width of the entire scrollbar */
+}
 #container {
     display: flex;
     height: 100vh;
+}
+.heading-bar{
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.user{
+color: #b9c6d2;
 }
 a {
   text-decoration: none; /* Removes underline */
@@ -18,7 +30,7 @@ a {
     width: 100%;
     color: #b9c6d2;
     text-align: center;
-
+    overflow-x:hidden;
     background-position: center;
     background-color: #302941;
     padding: 20px;
@@ -30,7 +42,7 @@ a {
 .box:hover{
     scale: 110%;
     opacity: 0.6;
-
+    overflow-x:hidden;
 }
 
 #menu {

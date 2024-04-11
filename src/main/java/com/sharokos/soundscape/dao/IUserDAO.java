@@ -10,4 +10,5 @@ import java.util.List;
 public interface IUserDAO {
     User saveUser(User theUser);
     boolean usernameExists(String username);
+    User getUserByName(String username);
 }

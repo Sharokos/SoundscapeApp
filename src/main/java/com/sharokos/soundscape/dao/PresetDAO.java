@@ -52,4 +52,10 @@ public class PresetDAO implements IPresetDAO{
         }
         return entityManager.merge(thePreset);
     }
+
+    @Override
+    public void deletePreset(int presetId) {
+        Preset preset = entityManager.find(Preset.class, presetId);
+        entityManager.remove(preset);
+    }
 }

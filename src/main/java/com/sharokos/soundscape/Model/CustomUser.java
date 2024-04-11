@@ -17,17 +17,35 @@ public class CustomUser extends User {
     @NotEmpty(message = "Username is required")
     private String username;
     @Column(name="password")
-    @NotEmpty(message = "Username is required")
+    @NotEmpty(message = "Password is required")
     private String password;
     @Column(columnDefinition = "tinyint(1) default 1")
     private boolean enabled;
     @OneToMany(mappedBy = "id.username", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Authority> authorities;
     @Transient
-    @NotEmpty(message = "Username is required")
+    @NotEmpty(message = "Confirmation is required")
     private String confirmPassword;
 
+    public int getNumberOfPresets() {
+        return numberOfPresets;
+    }
 
+    public void setNumberOfPresets(int numberOfPresets) {
+        this.numberOfPresets = numberOfPresets;
+    }
+
+    @Column(name="preset_number")
+    private int numberOfPresets;
+
+    public void incrementPresets(){
+        numberOfPresets++;
+    }
+    public void decrementPresets(){
+        if (numberOfPresets>0) {
+            numberOfPresets--;
+        }
+    }
     public String getConfirmPassword() {
         return confirmPassword;
     }

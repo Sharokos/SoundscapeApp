@@ -13,5 +13,6 @@ public interface IPresetDAO {
     List<Preset> getPresetsByUserAndSoundscape(String username, int soundscapeId);
     List<Preset> getDefaultPresetsForSoundscape(int soundscapeId);
     Preset savePreset(Preset thePreset);
+    void deletePreset(int presetId);
 
 }
