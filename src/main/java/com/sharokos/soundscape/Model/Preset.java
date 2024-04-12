@@ -1,6 +1,8 @@
 package com.sharokos.soundscape.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.Map;
 @Entity
@@ -10,12 +12,10 @@ public class Preset {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     @Column(name="preset_name")
+    @Size(min = 2, max = 30, message = "Preset name must have 2-30 characters.")
+    @NotBlank(message = "Preset must not be blank!")
     private String presetName;
-
-    // Other preset-related fields
-
     @ElementCollection
     @CollectionTable(name = "presetsound", joinColumns = @JoinColumn(name = "preset_id"))
     @MapKeyColumn(name = "sound_name")
@@ -32,6 +32,27 @@ public class Preset {
     @Column(name = "associated_username", nullable = false)
     private String associatedUsername;
 
+    public Preset() {
+    }
+
+    public Preset(int id,String presetName, Map<String, Integer> soundVolumes, Map<String, Integer> soundFrequency, Soundscape associatedSoundscape, String associatedUsername) {
+        this.id = id;
+        this.presetName = presetName;
+        this.soundVolumes = soundVolumes;
+        this.soundFrequency = soundFrequency;
+        this.associatedSoundscape = associatedSoundscape;
+        this.associatedUsername = associatedUsername;
+    }
+
+    public Preset getPresetDeepCopy(){
+        int id = this.getId();
+        String name = this.getPresetName();
+        Map<String, Integer> volumes = this.getSoundVolumes();
+        Map<String, Integer> freqs = this.getSoundFrequency();
+        Soundscape scape = this.getAssociatedSoundscape();
+        String username = this.getAssociatedUsername();
+        return new Preset(id, name, volumes, freqs, scape, username);
+    };
     public Map<String, Integer> getSoundFrequency() {
         return soundFrequency;
     }

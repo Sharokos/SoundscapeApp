@@ -174,6 +174,10 @@ function getOpacityFromFrequency(freq){
     return op;
 
 }
+function closeError(){
+var errorMessage = document.getElementsByClassName('error-message');
+    errorMessage[0].style.visibility = 'hidden';
+}
 function incrementFrequency(id){
     var btnFreq = document.getElementById(id);
     var freq = btnFreq.getAttribute('data-preset-sound-frequency')
@@ -199,9 +203,11 @@ function setOpacity(){
     freqBtns.forEach(function (frqBtn) {
         var freq = frqBtn.getAttribute('data-preset-sound-frequency')
         audioId = "audio_" + frqBtn.id.split("_")[1]
-        const audioSlider = document.getElementById(btnId);
+        const audioSlider = document.getElementById(audioId);
         var isDrone = audioSlider.getAttribute('data-sound-drone')
+
         if (isDrone == 'false') {
+
             freq = parseInt(freq);
             var op = getOpacityFromFrequency(freq);
             frqBtn.style.opacity = op;

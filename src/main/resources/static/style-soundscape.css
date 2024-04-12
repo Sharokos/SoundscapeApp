@@ -61,6 +61,13 @@ ul {
       background-color : rgba(0, 0, 0, 0.5);
 
 }
+.error-message{
+    font-style: italic;
+    color: #e96363;
+    align-self: center;
+    position: relative;
+}
+}
 #name-field{
     display: block;
     background-color: rgba(0, 0, 0, 0.8);

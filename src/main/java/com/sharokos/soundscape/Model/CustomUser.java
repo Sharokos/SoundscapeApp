@@ -1,11 +1,12 @@
 package com.sharokos.soundscape.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 
-import javax.validation.constraints.NotEmpty;
+
 import java.util.Collection;
 import java.util.Set;
 
@@ -24,7 +25,6 @@ public class CustomUser extends User {
     @OneToMany(mappedBy = "id.username", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Authority> authorities;
     @Transient
-    @NotEmpty(message = "Confirmation is required")
     private String confirmPassword;
 
     public int getNumberOfPresets() {
