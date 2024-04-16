@@ -4,22 +4,71 @@ body {
     font-family: Arial, sans-serif;
     background-color: #252329;
     overflow-x:hidden;
+
 }
 ::-webkit-scrollbar {
   width: 0px; /* Width of the entire scrollbar */
 }
-#container {
+.header-title {
+    font-size: 24px;
+    width:100vw;
+    text-align: center;
+    color: #b9c6d2;
+}
+
+.logout{
+    width: 40px; /* Set the width of the button */
+    height: 40px; /* Set the height of the button */
+    color: #b9c6d2;
+    font-size: 0;
+    background-size: contain; /* Cover the entire button with the background image */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    border: none; /* Remove the button border */
+    border-radius: 50%; /* Make the button round */
+    cursor: pointer; /* Change cursor to pointer on hover */
+     background-image: url('logout.png');
+}
+.box-text{
+
+    align-content: center;
+    text-align: center;
+    left: 2em;
+}
+
+.heading-bar {
+    display: flex;
+    position: fixed;
+    height: 3em;
+
+    align-items: center;
+    z-index: 1000;
+    background-color: #252329;
+    width: 100vw;
+    text-align: center;
+}
+.container {
+    position:relative;
+    top:3.3em;
     display: flex;
     height: 100vh;
-}
-.heading-bar{
-    padding: 5px;
-    display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
 }
+
 .user{
 color: #b9c6d2;
+margin-right:2em;
+}
+.flex-header {
+    display: flex;
+    position: absolute;
+    width: 100vw;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+
+    align-items: center;
+
 }
 a {
   text-decoration: none; /* Removes underline */
@@ -40,8 +89,10 @@ a {
     background-repeat: no-repeat;
 }
 .box:hover{
-    scale: 110%;
-    opacity: 0.6;
+    scale: 104%;
+    opacity: 0.8;
+    border: 0.1em solid #b9c6d2;
+    box-shadow: 0px 0px 7px #B0E7FF;
     overflow-x:hidden;
 }
 
@@ -55,4 +106,43 @@ a {
 #main {
     flex: 1;
     padding: 20px;
+}
+
+/* Tooltip text */
+.tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: white;
+  color: black;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  opacity: 0.5;
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltiptext.usertext {
+    width: 300px;
+    top: 100%;
+    left: 50%;
+    margin-left: -150px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+.tooltiptext.logouttext {
+    width: 70px;
+    top: 100%;
+    left: 50%;
+    margin-left: -55px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+.tooltip{
+    color: #b9c6d2;
+    position: relative;
+    display: inline-block;
+}
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }

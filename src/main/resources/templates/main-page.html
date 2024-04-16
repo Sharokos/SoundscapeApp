@@ -10,13 +10,21 @@
 </head>
 
 <body>
+    <div class="heading-bar">
+    <div class="header-title">Sharokos Soundscapes</div>
+        <div class="flex-header">
+        <span class="user tooltip"><span>Welcome, </span ><u th:text="${username}"></u>
+            <span class="tooltiptext usertext" th:if="${username=='guest'}"
+                  th:text="${'No saved presets for guests. Please register!'}"></span>
+            <span class="tooltiptext usertext" th:unless="${username=='guest'}"
+                  th:text="${usedPresets +'/20 presets used.'}"></span> </span>
+        <form th:action="@{/logout}" class= "tooltip" method="post">
+            <button type="submit" class="logout"></button>
+            <span class="tooltiptext logouttext">Logout</span>
+        </form>
+        </div>
+    </div>
 
-<div class="heading-bar">
-    <p th:text="${username}" class="user"> </p>
-    <form th:action="@{/logout}" method="post">
-        <button type="submit">Logout</button>
-    </form>
-</div>
 <div class="container">
     <!-- Creating divs for each entry found inside soundscapes.   -->
     <a   th:href="@{'/soundscape/' + ${soundScape.id}}" class="box"
@@ -24,8 +32,10 @@
          th:style="'background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8)),
                     url(' + ${soundScape.soundscapeImage} + ');'"
     >
+        <div class="box-text">
         <h2 th:text="${soundScape.soundscapeName}"> </h2>
         <p th:text="${soundScape.soundscapeDescription}"></p>
+        </div>
     </a>
 </div>
 

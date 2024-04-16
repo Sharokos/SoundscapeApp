@@ -6,16 +6,10 @@ body {
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
-a {
-  text-decoration: none; /* Removes underline */
-  font-weight: normal;   /* Removes bold */
-}
+/*============================================== PRESET SIDEBAR ==============================================*/
 .menu-item {
     width: 80%;
     padding: 5px;
-}
-ul {
-    list-style-type: none;
 }
 .menu-item div {
     display: flex;
@@ -35,38 +29,80 @@ ul {
     text-overflow: ellipsis;
     margin-right: 10px;
 }
-
-.currentPreset{
-    color: red!important;
-}
-.soundscapeText{
-    width: 40px; /* Set the width of the button */
-    height: 40px; /* Set the height of the button */
-    color: #b9c6d2;
-    background-size: contain; /* Cover the entire button with the background image */
-    background-repeat: no-repeat; /* Prevent the background image from repeating */
-      border: none; /* Remove the button border */
-      border-radius: 50%; /* Make the button round */
-      cursor: pointer; /* Change cursor to pointer on hover */
-}
-
 #menu_container {
     background-color : rgba(0, 0, 0, 0.5);
     overflow-y : scroll;
 }
 #menu-list{
-
-
-      width: 200px;
-      background-color : rgba(0, 0, 0, 0.5);
-
+   width: 200px;
 }
+
+.currentPreset{
+    color: red!important;
+}
+a {
+  text-decoration: none; /* Removes underline */
+  font-weight: normal;   /* Removes bold */
+}
+ul {
+    list-style-type: none;
+}
+
+
+.soundscapeText{
+    width: 40px; /* Set the width of the button */
+    height: 40px; /* Set the height of the button */
+    color: #b9c6d2;
+    font-size: 0;
+    background-size: contain; /* Cover the entire button with the background image */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    border: none; /* Remove the button border */
+    border-radius: 50%; /* Make the button round */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+
 .error-message{
     font-style: italic;
     color: #e96363;
     align-self: center;
     position: relative;
 }
+/* Tooltip text */
+.tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: white;
+  color: black;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  opacity: 0.5;
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltiptext.frequencytext {
+    width: 300px;
+    top: 100%;
+    left: 50%;
+    margin-left: -150px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+.tooltiptext.deletetext {
+    width: 50px;
+    top: 100%;
+    left: 50%;
+    margin-left: -25px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+.tooltip{
+    color:black;
+    position: relative;
+    display: inline-block;
+}
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
 #name-field{
     display: block;
@@ -81,6 +117,7 @@ ul {
     width: 40px; /* Set the width of the button */
     height: 40px; /* Set the height of the button */
     color: #b9c6d2;
+
     background-size: contain; /* Cover the entire button with the background image */
     background-repeat: no-repeat; /* Prevent the background image from repeating */
     border: none; /* Remove the button border */
@@ -88,21 +125,36 @@ ul {
     cursor: pointer; /* Change cursor to pointer on hover */
     background-image: url('menu.png');
 }
-
+.soundscape-presentation{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+    top: -2em;
+}
+.soundscape-title{
+    color: #b9c6d2;
+}
+.soundscape-title#title{
+    font-size: 2em;
+}.soundscape-title#subtitle{
+    font-size: 1em;
+}
 #collapse_menu{
     overflow-y: auto;
 }
 #save-button{
     display: block;
-
-        width: 40px; /* Set the width of the button */
-        height: 40px; /* Set the height of the button */
-        color: #b9c6d2;
-        background-size: contain; /* Cover the entire button with the background image */
-        background-repeat: no-repeat; /* Prevent the background image from repeating */
-          border: none; /* Remove the button border */
-          border-radius: 50%; /* Make the button round */
-          cursor: pointer; /* Change cursor to pointer on hover */
+    width: 40px; /* Set the width of the button */
+    height: 40px; /* Set the height of the button */
+    color: #b9c6d2;
+    background-size: contain; /* Cover the entire button with the background image */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    border: none; /* Remove the button border */
+    border-radius: 50%; /* Make the button round */
+    cursor: pointer; /* Change cursor to pointer on hover */
     background-image: url('save.png');
     border-radius: 20px;
     color: #b9c6d2;
@@ -112,7 +164,8 @@ a:-webkit-any-link {
     text-decoration: none; /* optional: override text-decoration */
 }
 #menu-list{
-color: #b9c6d2;
+    color: #b9c6d2;
+    padding-inline-start: 10px;
 }
 ::-webkit-scrollbar {
   width: 0px; /* Width of the entire scrollbar */
@@ -131,7 +184,7 @@ color: #b9c6d2;
 #container {
     display: flex;
     flex-wrap: nowrap;
-    padding: 2%;
+
     flex-direction: column;
 
 }
@@ -156,10 +209,35 @@ form.form-style {
     align-content: space-between;
     justify-content: space-between;
 }
+.preset-button {
+    background: red;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    text-align:center;
+    }
 
+.preset_name_button{
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide any overflowing content */
+    text-overflow: ellipsis; /* Show an ellipsis (...) to indicate that text is truncated */
+    width: 8em;
+    text-align: left;
+    background-color: transparent;
+    border: none;
+    color: #b9c6d2;
+    cursor: pointer;
+    border:#b9c6d2;
+    box-shadow: 0px 0px 7px #B0E7FF;
+    border-radius: 15px;
+
+
+}
 .final-form {
+    top: 10em;
     display: flex;
     align-items: center;
+    position: relative;
     flex-direction: row;
     justify-content: center;
 }

@@ -178,11 +178,13 @@ function closeError(){
 var errorMessage = document.getElementsByClassName('error-message');
     errorMessage[0].style.visibility = 'hidden';
 }
+
+
 function incrementFrequency(id){
     var btnFreq = document.getElementById(id);
     var freq = btnFreq.getAttribute('data-preset-sound-frequency')
-    console.log("Frequency read from html: " + freq);
-
+    var parentDiv = btnFreq.parentNode;
+    var frequencyText = parentDiv.querySelector('.tooltiptext');
 
     freq = parseInt(freq);
 
@@ -191,6 +193,8 @@ function incrementFrequency(id){
     if (freq>2){
         freq = 0;
     }
+    frequencyText.innerHTML  = "<b>" + btnFreq.id.split("_")[1] + "</b>" + "<br> Current frequency: " + freq + "<br> Click to cycle through frequencies!";
+
     var op = getOpacityFromFrequency(freq);
     btnFreq.style.opacity = op;
     btnFreq.setAttribute('data-preset-sound-frequency',freq)
@@ -205,12 +209,18 @@ function setOpacity(){
         audioId = "audio_" + frqBtn.id.split("_")[1]
         const audioSlider = document.getElementById(audioId);
         var isDrone = audioSlider.getAttribute('data-sound-drone')
-
+        var parentDiv = frqBtn.parentNode;
+        var frequencyText = parentDiv.querySelector('.tooltiptext');
         if (isDrone == 'false') {
+
+            frequencyText.innerHTML  = "<b>" + frqBtn.id.split("_")[1] + "</b>" + "<br> Current frequency: " + freq + "<br> Click to cycle through frequencies!";
 
             freq = parseInt(freq);
             var op = getOpacityFromFrequency(freq);
             frqBtn.style.opacity = op;
+        }
+        else {
+            frequencyText.innerHTML  = "<b>" + frqBtn.id.split("_")[1] + "</b>" + "<br> Can't modify this frequency."
         }
     });
 

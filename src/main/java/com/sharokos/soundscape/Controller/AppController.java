@@ -45,15 +45,25 @@ public class AppController {
     }
     @GetMapping("/main")
     public String showMainPage(Model model){
+        int usedPresets = 0;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
+
+
+
         if (Objects.equals(username, "anonymousUser")){
             username = "guest";
+        }
+
+        if (!username.equals("guest")) {
+            CustomUser currentUser = (CustomUser) userService.getUserByName(username);
+            usedPresets = currentUser.getNumberOfPresets();
         }
         //Display every soundscape in the database
         List<Soundscape> soundScapes = soundscapeService.getAllSoundscapes();
         model.addAttribute("soundScapes", soundScapes);
         model.addAttribute("username", username);
+        model.addAttribute("usedPresets", usedPresets);
 
         return "main-page";
     }
@@ -102,15 +112,18 @@ public class AppController {
             defaultPresets.add(element.getPresetDeepCopy());
         }
         Preset preset = presetService.getPresetById(presetId);
+        String presetName="";
         if (preset == null) {
             if(!defaultPresets.isEmpty()){
                 preset = defaultPresetsOriginal.getFirst();
                 preset.setAssociatedUsername(username);
+                presetName = preset.getPresetName();
                 preset.setPresetName("");
             }
         }
         else{
             preset.setAssociatedUsername(username);
+            presetName = preset.getPresetName();
             preset.setPresetName("");
         }
 
@@ -123,6 +136,7 @@ public class AppController {
         model.addAttribute("defaultPresetList", defaultPresets);
         model.addAttribute("userPresetList", userPresets);
         model.addAttribute("preset", preset);
+        model.addAttribute("presetName", presetName);
 
         if (inputFlashMap != null) {
             String presetError = (String) inputFlashMap.get("presetError");
