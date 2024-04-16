@@ -13,7 +13,7 @@
 
 <div id="flex-container">
 
-    <a class = "flex-item" th:href="@{/main}" style="font-size:2em;">←</a>
+    <a class = "flex-item" th:href="@{/main}" style="font-size:2em; height:0vh;">←</a>
 
     <form action="#" th:action="@{/savePreset(soundscapeId=${scape.id})}"  th:if="${preset}"  th:object="${preset}" method="POST" class="form-style">
             <div class="flex-item" id="container">
@@ -27,6 +27,7 @@
                 </div>
                 <div class="soundscape-presentation">
                     <span class="soundscape-title" id="title" th:text="${scape.soundscapeName}"></span>
+                    <br/>
                     <span class="soundscape-title" id="subtitle" th:text="${'- ' + presetName + ' -'}"></span>
 
                 </div>
@@ -78,9 +79,10 @@
 <!--                    Display the default presets-->
                     <li th:each="pres : ${defaultPresetList}" class="default-menu-item">
 
-                        <form th:action="@{/submit}" method="post"th:class="${preset.id == pres.id ? 'currentPreset' : 'defaultPresetName'}">
+                        <form th:action="@{/submit}" method="post">
                             <input type="hidden" name="hiddenField" th:value="${pres.id}" />
-                            <button type="submit" class="preset_name_button" th:text="${pres.presetName}"></button>
+                            <button type="submit" th:class="${preset.id == pres.id ? 'currentPreset' : 'preset_name_button'}"
+                                    th:text="${pres.presetName}"></button>
                         </form>
                     </li>
 <!--                    Display the user presets (with the option to delete them)-->
@@ -93,9 +95,10 @@
 
                     <li th:each="pres : ${userPresetList}" class="menu-item">
                         <div>
-                            <form th:action="@{/submit}" method="post"th:class="${preset.id == pres.id ? 'currentPreset' : 'defaultPresetName'}">
+                            <form th:action="@{/submit}" method="post">
                                 <input type="hidden" name="hiddenField" th:value="${pres.id}" />
-                                <button type="submit" class="preset_name_button"  th:text="${pres.presetName}"></button>
+                                <button type="submit" th:class="${preset.id == pres.id ? 'currentPreset' : 'preset_name_button'}"
+                                        th:text="${pres.presetName}"></button>
                             </form>
 
                             <a th:href="@{/deletePreset(presetId=${pres.id}, soundscapeId=${scape.id})}"

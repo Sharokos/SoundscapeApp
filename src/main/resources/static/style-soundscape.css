@@ -8,7 +8,7 @@ body {
 }
 /*============================================== PRESET SIDEBAR ==============================================*/
 .menu-item {
-    width: 80%;
+
     padding: 5px;
 }
 .menu-item div {
@@ -17,7 +17,7 @@ body {
     align-items: center;
 }
 .default-menu-item {
-    width: 80%;
+
     padding: 5px;
 }
 .default-menu-item div{
@@ -34,21 +34,66 @@ body {
     overflow-y : scroll;
 }
 #menu-list{
-   width: 200px;
+    width: 14em;
+    color: #b9c6d2;
+    padding-inline-start: 1em;
 }
 
 .currentPreset{
-    color: red!important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 8em;
+    text-align: left;
+    background-color: transparent;
+    border: none;
+    color: red;
+    cursor: pointer;
+    border:#b9c6d2;
+    box-shadow: 0px 0px 7px #B0E7FF;
+    border-radius: 15px;
+
 }
-a {
-  text-decoration: none; /* Removes underline */
-  font-weight: normal;   /* Removes bold */
+
+#preset_button{
+    display: block;
+    margin: 1em;
+    width: 40px; /* Set the width of the button */
+    height: 40px; /* Set the height of the button */
+    background-size: contain; /* Cover the entire button with the background image */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    border: none; /* Remove the button border */
+    border-radius: 50%; /* Make the button round */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    background-image: url('menu.png');
 }
-ul {
-    list-style-type: none;
+.preset-button {
+    background: red;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    text-align:center;
+    }
+
+.preset_name_button{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 8em;
+    text-align: left;
+    background-color: transparent;
+    border: none;
+    color: #b9c6d2;
+    cursor: pointer;
+    border:#b9c6d2;
+    box-shadow: 0px 0px 7px #B0E7FF;
+    border-radius: 15px;
+
+
 }
 
 
+/*============================================== MAIN CONTENT ==============================================*/
 .soundscapeText{
     width: 40px; /* Set the width of the button */
     height: 40px; /* Set the height of the button */
@@ -68,6 +113,107 @@ ul {
     align-self: center;
     position: relative;
 }
+
+#name-field{
+    display: block;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    color: #b9c6d2;
+    margin: 1em;
+}
+
+.soundscape-presentation{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+    top: -2em;
+}
+.soundscape-title{
+    color: #b9c6d2;
+}
+.soundscape-title#title{
+    font-size: 2em;
+}.soundscape-title#subtitle{
+    font-size: 1em;
+}
+
+#save-button{
+    display: block;
+    width: 40px; /* Set the width of the button */
+    height: 40px; /* Set the height of the button */
+    color: #b9c6d2;
+    background-size: contain; /* Cover the entire button with the background image */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    border: none; /* Remove the button border */
+    border-radius: 50%; /* Make the button round */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    background-image: url('save.png');
+    border-radius: 20px;
+    color: #b9c6d2;
+}
+
+
+#flex-container{
+    display: flex;
+    overflow: hidden;
+    height: 100vh; /* 100% of the viewport height */
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: space-between;
+    justify-content: space-between;
+    }
+
+
+#container {
+    display: flex;
+    flex-wrap: nowrap;
+
+    flex-direction: column;
+
+}
+.audio-control-item {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 2vw;
+}
+form.form-style {
+    margin: 5%;
+
+}
+.audio-control {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.final-form {
+    top: 10em;
+    display: flex;
+    align-items: center;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+.vertical-slider {
+
+    height: 15em;
+    width: 5em;
+    accent-color: rgba(14, 13, 32, 0.4);
+    border-radius: 15px;
+    cursor: grab;
+    box-shadow: 0px 0px 7px #B0E7FF;
+}
+
+/*============================================== TOOLTIPS ==============================================*/
+
 /* Tooltip text */
 .tooltiptext {
   visibility: hidden;
@@ -104,156 +250,26 @@ ul {
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
-#name-field{
-    display: block;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 20px;
-    color: #b9c6d2;
-    margin: 1em;
-}
-#preset_button{
-    display: block;
-    margin: 1em;
-    width: 40px; /* Set the width of the button */
-    height: 40px; /* Set the height of the button */
-    color: #b9c6d2;
 
-    background-size: contain; /* Cover the entire button with the background image */
-    background-repeat: no-repeat; /* Prevent the background image from repeating */
-    border: none; /* Remove the button border */
-    border-radius: 50%; /* Make the button round */
-    cursor: pointer; /* Change cursor to pointer on hover */
-    background-image: url('menu.png');
-}
-.soundscape-presentation{
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    flex-wrap: wrap;
-    align-items: center;
-    position: relative;
-    top: -2em;
-}
-.soundscape-title{
-    color: #b9c6d2;
-}
-.soundscape-title#title{
-    font-size: 2em;
-}.soundscape-title#subtitle{
-    font-size: 1em;
-}
-#collapse_menu{
-    overflow-y: auto;
-}
-#save-button{
-    display: block;
-    width: 40px; /* Set the width of the button */
-    height: 40px; /* Set the height of the button */
-    color: #b9c6d2;
-    background-size: contain; /* Cover the entire button with the background image */
-    background-repeat: no-repeat; /* Prevent the background image from repeating */
-    border: none; /* Remove the button border */
-    border-radius: 50%; /* Make the button round */
-    cursor: pointer; /* Change cursor to pointer on hover */
-    background-image: url('save.png');
-    border-radius: 20px;
-    color: #b9c6d2;
-}
-a:-webkit-any-link {
-    color: #b9c6d2; /* your desired color */
-    text-decoration: none; /* optional: override text-decoration */
-}
-#menu-list{
-    color: #b9c6d2;
-    padding-inline-start: 10px;
+
+
+/*============================================== OVERWRITES ==============================================*/
+input[type="text" i] {
+    padding-block: 0px !important;
+    padding-inline: 0px !important;
 }
 ::-webkit-scrollbar {
-  width: 0px; /* Width of the entire scrollbar */
+  width: 0px;
 }
-#flex-container{
-    display: flex;
-    overflow: hidden;
-    height: 100vh; /* 100% of the viewport height */
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-content: space-between;
-    justify-content: space-between;
-    }
-
-
-#container {
-    display: flex;
-    flex-wrap: nowrap;
-
-    flex-direction: column;
-
-}
-.audio-control-item {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding: 2vw;
-    /* Add any additional styling as needed */
-}
-form.form-style {
-    margin: 5%;
-
-}
-.audio-control {
-    width: 90%;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: nowrap;
-    align-content: space-between;
-    justify-content: space-between;
-}
-.preset-button {
-    background: red;
-    border-radius: 100%;
-    width: 20px;
-    height: 20px;
-    text-align:center;
-    }
-
-.preset_name_button{
-    white-space: nowrap; /* Prevent text from wrapping */
-    overflow: hidden; /* Hide any overflowing content */
-    text-overflow: ellipsis; /* Show an ellipsis (...) to indicate that text is truncated */
-    width: 8em;
-    text-align: left;
-    background-color: transparent;
-    border: none;
+a:-webkit-any-link {
     color: #b9c6d2;
-    cursor: pointer;
-    border:#b9c6d2;
-    box-shadow: 0px 0px 7px #B0E7FF;
-    border-radius: 15px;
-
-
-}
-.final-form {
-    top: 10em;
-    display: flex;
-    align-items: center;
-    position: relative;
-    flex-direction: row;
-    justify-content: center;
+    text-decoration: none;
 }
 
-input[type="text" i] {
-    padding-block: 0px !important; /* Your desired padding value */
-    padding-inline: 0px !important; /* Your desired padding value */
+a {
+  text-decoration: none; /* Removes underline */
+  font-weight: normal;   /* Removes bold */
 }
-.vertical-slider {
-
-    height: 180px;
-    width: 60px;
-    background-color: #343640;
-    background: #adb2c9;
-    accent-color: rgba(14, 13, 32, 0.4);
-    border-radius: 15px;
-    cursor: grab;
-    box-shadow: 0px 0px 7px #B0E7FF;
+ul {
+    list-style-type: none;
 }

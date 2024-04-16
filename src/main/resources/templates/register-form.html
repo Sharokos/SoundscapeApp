@@ -12,7 +12,7 @@
     <form action="#" th:action="@{/register}" th:object="${theUser}" method="post" class="register-form">
         <label for="username">User name:</label>
         <input type="text" id="username" name="username" th:field="*{username}" autocomplete="off"/>
-        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span><br/>
+        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
         <br/>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" th:field="*{password}" />
@@ -21,8 +21,10 @@
         <input type="password" id="password_confirm" name="password" th:field="*{confirmPassword}" />
         <span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></span><br/>
         <br/>
-
-        <button type="submit">Register</button>
+        <div id="register_container">
+            <button type="submit" class="register_button">Register</button>
+            <a th:href="@{/showLoginPage}" class="register_button">Back</a>
+        </div>
     </form>
 </div>
 
